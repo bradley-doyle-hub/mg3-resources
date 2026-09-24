@@ -17,9 +17,6 @@
     --alpha-yes:#1D5C6B;
     --alpha-no:#6B6962;
     --danger:#B23A2A;
-    --code-bg:#0E0E0E;
-    --code-text:#F4F1EA;
-    --code-muted:#9C9686;
     color-scheme:light;
   }
   @media (prefers-color-scheme: dark){
@@ -27,14 +24,14 @@
       --bg:#1A1A1A; --surface:#2A2926; --surface-2:#363228; --text:#F4F1EA; --muted:#A9A392;
       --border:rgba(244,241,234,0.14); --accent:#5FB3C4; --accent-soft:#1C3236;
       --alpha-yes:#5FB3C4; --alpha-no:#A9A392; --danger:#D9695A;
-      --code-bg:#0E0E0E; --code-text:#F4F1EA; --code-muted:#8f8a7c; color-scheme:dark;
+      color-scheme:dark;
     }
   }
   :root[data-theme="dark"]{
     --bg:#1A1A1A; --surface:#2A2926; --surface-2:#363228; --text:#F4F1EA; --muted:#A9A392;
     --border:rgba(244,241,234,0.14); --accent:#5FB3C4; --accent-soft:#1C3236;
     --alpha-yes:#5FB3C4; --alpha-no:#A9A392; --danger:#D9695A;
-    --code-bg:#0E0E0E; --code-text:#F4F1EA; --code-muted:#8f8a7c; color-scheme:dark;
+    color-scheme:dark;
   }
   * { box-sizing:border-box; }
   html,body{ margin:0; }
@@ -77,33 +74,31 @@
 
   .broken-pipe{
     display:flex; align-items:center; gap:12px; flex-wrap:wrap;
-    background:var(--code-bg); border-radius:8px; padding:22px 20px;
+    background:var(--surface); border:1px solid var(--border); border-radius:8px; padding:22px 20px;
   }
   .pbox{
     font-family:'JetBrains Mono', monospace; font-size:14px;
-    color:var(--code-text); background:rgba(244,241,234,0.08);
+    color:var(--text); background:var(--surface-2);
     padding:8px 14px; border-radius:4px; white-space:nowrap;
   }
-  /* the arrow itself stays neutral (it sits on the black code block); "broken" is
-     shown with a small light chip badge, never coloured text directly on black */
-  .parrow{ color:var(--code-text); font-size:18px; position:relative; }
+  .parrow{ color:var(--muted); font-size:18px; position:relative; }
   .parrow.dead::after{
     content:"✕"; position:absolute; top:-20px; left:50%; transform:translateX(-50%);
     width:18px; height:18px; border-radius:50%; display:flex; align-items:center; justify-content:center;
     font-size:11px; font-weight:700; color:#4A1810; background:#F2CFC6;
   }
-  .parrow.ok{ color:var(--code-muted); }
+  .parrow.ok{ color:var(--muted); }
 
   .pipeline{
     display:flex; align-items:center; gap:0; flex-wrap:wrap;
-    background:var(--code-bg); border-radius:8px; padding:22px 20px;
+    background:var(--surface); border:1px solid var(--border); border-radius:8px; padding:22px 20px;
   }
   .pipe-step{
     font-family:'JetBrains Mono', monospace; font-size:13.5px;
-    color:var(--code-text); background:rgba(244,241,234,0.08);
+    color:var(--text); background:var(--surface-2);
     padding:8px 14px; border-radius:4px; white-space:nowrap;
   }
-  .pipe-arrow{ color:var(--code-muted); padding:0 10px; font-size:15px; }
+  .pipe-arrow{ color:var(--muted); padding:0 10px; font-size:15px; }
 
   .why-box{
     margin-top:16px; font-size:15px; padding:14px 16px;
@@ -151,13 +146,13 @@
 
   .final-rule{
     margin-top:20px; text-align:center; padding:24px;
-    background:var(--code-bg); border-radius:8px;
+    background:var(--accent-soft); border-radius:8px;
   }
   .final-rule .eq{
     font-family:'JetBrains Mono', monospace; font-size:clamp(22px,5vw,30px);
-    font-weight:700; color:var(--code-text);
+    font-weight:700; color:var(--accent);
   }
-  .final-rule .eq .no{ color:var(--code-text); }
+  .final-rule .eq .no{ color:var(--danger); }
 
   footer{ margin-top:64px; padding-top:20px; border-top:1px solid var(--border); color:var(--muted); font-size:13.5px; }
 </style>

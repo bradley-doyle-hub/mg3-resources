@@ -18,9 +18,6 @@
     --seg-identifier:#2B7A3E;
     --seg-phase:#C68A14;
     --seg-version:#B23A2A;
-    --code-bg:#0E0E0E;
-    --code-text:#F4F1EA;
-    --code-muted:#9C9686;
     color-scheme:light;
   }
   @media (prefers-color-scheme: dark){
@@ -28,14 +25,14 @@
       --bg:#1A1A1A; --surface:#2A2926; --surface-2:#363228; --text:#F4F1EA; --muted:#A9A392;
       --border:rgba(244,241,234,0.14); --accent:#5FB3C4; --accent-soft:#1C3236;
       --seg-assignment:#5FB3C4; --seg-identifier:#5FBE79; --seg-phase:#E0B04E; --seg-version:#DD8A7B;
-      --code-bg:#0E0E0E; --code-text:#F4F1EA; --code-muted:#8f8a7c; color-scheme:dark;
+      color-scheme:dark;
     }
   }
   :root[data-theme="dark"]{
     --bg:#1A1A1A; --surface:#2A2926; --surface-2:#363228; --text:#F4F1EA; --muted:#A9A392;
     --border:rgba(244,241,234,0.14); --accent:#5FB3C4; --accent-soft:#1C3236;
     --seg-assignment:#5FB3C4; --seg-identifier:#5FBE79; --seg-phase:#E0B04E; --seg-version:#DD8A7B;
-    --code-bg:#0E0E0E; --code-text:#F4F1EA; --code-muted:#8f8a7c; color-scheme:dark;
+    color-scheme:dark;
   }
   * { box-sizing:border-box; }
   html,body{ margin:0; }
@@ -64,7 +61,7 @@
   @media (max-width:560px){ .quickref{ grid-template-columns:1fr; } }
   .qcard{ background:var(--surface); border:1px solid var(--border); border-radius:8px; padding:18px 18px 16px; }
   .qcard .label{ font-size:12px; font-weight:600; text-transform:uppercase; letter-spacing:0.06em; color:var(--muted); margin-bottom:10px; }
-  .qcard code{ display:block; font-size:14px; background:var(--code-bg); color:var(--code-text); padding:10px 12px; border-radius:4px; overflow-x:auto; white-space:pre; }
+  .qcard code{ display:block; font-size:14px; background:var(--surface-2); color:var(--text); padding:10px 12px; border-radius:4px; overflow-x:auto; white-space:pre; border:1px solid var(--border); }
   .qcard .example{ font-size:13px; color:var(--muted); margin-top:10px; }
   .qcard .example code{ display:inline; background:none; color:var(--accent); padding:0; border-radius:0; font-weight:600; }
 
@@ -72,16 +69,14 @@
   h2{ font-size:22px; margin:0 0 6px; }
   .section-note{ color:var(--muted); font-size:15px; margin:0 0 20px; max-width:58ch; }
 
-  .pattern-block{ background:var(--code-bg); border-radius:8px; padding:22px 20px; overflow-x:auto; }
-  .pattern-line{ font-size:clamp(14px,3.6vw,19px); white-space:pre; color:var(--code-text); }
-  /* segments sit inside a black code block: always a light chip with dark text,
-     never coloured text directly on the black background, regardless of page theme */
+  .pattern-block{ background:var(--surface); border:1px solid var(--border); border-radius:8px; padding:22px 20px; overflow-x:auto; }
+  .pattern-line{ font-size:clamp(14px,3.6vw,19px); white-space:pre; color:var(--text); }
   .seg{ padding:2px 6px; border-radius:4px; font-weight:600; }
   .seg-assignment{ background:#CFE9EC; color:#0E2E33; }
   .seg-identifier{ background:#D3EDD8; color:#123B1A; }
   .seg-phase{ background:#F6E3B8; color:#4A3208; }
   .seg-version{ background:#F2CFC6; color:#4A1810; }
-  .seg-plain{ color:var(--code-muted); }
+  .seg-plain{ color:var(--muted); }
 
   .legend{ display:flex; flex-wrap:wrap; gap:10px 18px; margin-top:16px; }
   .legend-item{ display:flex; align-items:center; gap:7px; font-size:13.5px; color:var(--muted); }
