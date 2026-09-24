@@ -1,0 +1,71 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Motion Graphics 3 — Resources</title>
+<style>
+  :root{
+    --bg:#eef0f4; --surface:#ffffff; --surface-2:#f4f5f8; --text:#14161a; --muted:#5b6270;
+    --border:#dde0e6; --accent:#2b5fb0; --accent-soft:#e4ecfb; color-scheme:light;
+  }
+  @media (prefers-color-scheme: dark){
+    :root:not([data-theme="light"]){
+      --bg:#0f1115; --surface:#171a20; --surface-2:#1d2129; --text:#eceef2; --muted:#9aa2b1;
+      --border:#2a2f3a; --accent:#7ba3e8; --accent-soft:#1e2a42; color-scheme:dark;
+    }
+  }
+  :root[data-theme="dark"]{
+    --bg:#0f1115; --surface:#171a20; --surface-2:#1d2129; --text:#eceef2; --muted:#9aa2b1;
+    --border:#2a2f3a; --accent:#7ba3e8; --accent-soft:#1e2a42; color-scheme:dark;
+  }
+  * { box-sizing:border-box; }
+  html,body{ margin:0; }
+  body{
+    background:var(--bg); color:var(--text);
+    font-family:'Public Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+    line-height:1.55; padding-inline:20px;
+  }
+  h1,h2{ font-family:'Sora', -apple-system, sans-serif; letter-spacing:-0.01em; text-wrap:balance; }
+  main{ max-width:760px; margin:0 auto; padding-block:56px 80px; }
+  .eyebrow{
+    display:inline-flex; align-items:center; gap:8px; font-size:12.5px; font-weight:600;
+    letter-spacing:0.08em; text-transform:uppercase; color:var(--accent); margin-bottom:14px;
+  }
+  .eyebrow::before{ content:""; width:7px; height:7px; border-radius:2px; background:var(--accent); display:inline-block; }
+  h1{ font-size:clamp(28px,5vw,38px); margin:0 0 14px; }
+  .lede{ font-size:17px; color:var(--muted); max-width:56ch; margin:0 0 8px; }
+  .list{ margin-top:40px; display:grid; gap:12px; }
+  a.card{
+    display:block; background:var(--surface); border:1px solid var(--border); border-radius:12px;
+    padding:20px 22px; text-decoration:none; color:var(--text);
+  }
+  a.card:hover{ border-color:var(--accent); }
+  a.card .name{ font-family:'Sora', sans-serif; font-weight:600; font-size:17px; margin-bottom:4px; }
+  a.card .desc{ font-size:14px; color:var(--muted); }
+  footer{ margin-top:64px; padding-top:20px; border-top:1px solid var(--border); color:var(--muted); font-size:13.5px; }
+</style>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@600;700&family=Public+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+</head>
+<body>
+<main>
+  <div class="eyebrow">Motion Graphics 3</div>
+  <h1>Student Resources</h1>
+  <p class="lede">Reference guides for this course. Software-agnostic where possible, so they still hold up after the semester.</p>
+
+  <div class="list">
+    <a class="card" href="guides/file-folder-naming.html">
+      <div class="name">File &amp; Folder Naming</div>
+      <div class="desc">How to organise project folders and files so nothing gets lost.</div>
+    </a>
+    <a class="card" href="guides/rendering-101.html">
+      <div class="name">Rendering 101</div>
+      <div class="desc">The two-stage pipeline for getting a finished file out of any build tool.</div>
+    </a>
+  </div>
+
+  <footer>Motion Graphics 3: reference resource</footer>
+</main>
+</body>
+</html>

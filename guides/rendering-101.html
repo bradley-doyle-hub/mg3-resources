@@ -1,0 +1,270 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Rendering 101 — Motion Graphics 3</title>
+<style>
+  :root{
+    --bg:#eef0f4;
+    --surface:#ffffff;
+    --surface-2:#f4f5f8;
+    --text:#14161a;
+    --muted:#5b6270;
+    --border:#dde0e6;
+    --accent:#2b5fb0;
+    --accent-soft:#e4ecfb;
+    --alpha-yes:#0d7377;
+    --alpha-no:#b06a1f;
+    --danger:#c0392b;
+    --code-bg:#14161c;
+    --code-text:#e9edf2;
+    --code-muted:#8b93a3;
+    color-scheme:light;
+  }
+  @media (prefers-color-scheme: dark){
+    :root:not([data-theme="light"]){
+      --bg:#0f1115; --surface:#171a20; --surface-2:#1d2129; --text:#eceef2; --muted:#9aa2b1;
+      --border:#2a2f3a; --accent:#7ba3e8; --accent-soft:#1e2a42;
+      --alpha-yes:#5fd0cf; --alpha-no:#e3a75c; --danger:#e0685c;
+      --code-bg:#0a0b0e; --code-text:#e9edf2; --code-muted:#727a8a; color-scheme:dark;
+    }
+  }
+  :root[data-theme="dark"]{
+    --bg:#0f1115; --surface:#171a20; --surface-2:#1d2129; --text:#eceef2; --muted:#9aa2b1;
+    --border:#2a2f3a; --accent:#7ba3e8; --accent-soft:#1e2a42;
+    --alpha-yes:#5fd0cf; --alpha-no:#e3a75c; --danger:#e0685c;
+    --code-bg:#0a0b0e; --code-text:#e9edf2; --code-muted:#727a8a; color-scheme:dark;
+  }
+  * { box-sizing:border-box; }
+  html,body{ margin:0; }
+  body{
+    background:var(--bg); color:var(--text);
+    font-family:'Public Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+    line-height:1.55; padding-inline:20px;
+  }
+  h1,h2,h3{ font-family:'Sora', -apple-system, sans-serif; letter-spacing:-0.01em; text-wrap:balance; }
+  code, .mono{ font-family:'JetBrains Mono', ui-monospace, monospace; }
+  main{ max-width:760px; margin:0 auto; padding-block:32px 80px; }
+  a.backlink{ color:var(--muted); font-size:13.5px; text-decoration:none; }
+  a.backlink:hover{ color:var(--accent); }
+
+  .eyebrow{
+    display:inline-flex; align-items:center; gap:8px;
+    font-size:12.5px; font-weight:600; letter-spacing:0.08em;
+    text-transform:uppercase; color:var(--accent); margin:24px 0 14px;
+  }
+  .eyebrow::before{ content:""; width:7px; height:7px; border-radius:2px; background:var(--accent); display:inline-block; }
+  h1{ font-size:clamp(28px,5vw,38px); margin:0 0 14px; }
+  .lede{ font-size:17px; color:var(--muted); max-width:56ch; margin:0 0 8px; }
+
+  .quickref{ margin-top:36px; display:grid; gap:12px; grid-template-columns:1fr 1fr; }
+  @media (max-width:560px){ .quickref{ grid-template-columns:1fr; } }
+  .qcard{ background:var(--surface); border:1px solid var(--border); border-radius:12px; padding:18px 18px 16px; }
+  .qcard .stagenum{
+    display:inline-flex; align-items:center; justify-content:center;
+    width:22px; height:22px; border-radius:6px; font-size:12px; font-weight:700;
+    font-family:'JetBrains Mono', monospace; background:var(--accent-soft); color:var(--accent);
+    margin-bottom:10px;
+  }
+  .qcard .label{ font-size:14px; font-weight:600; margin-bottom:8px; }
+  .qcard .sub{ font-size:13.5px; color:var(--muted); margin-bottom:8px; }
+  .qcard .out{ font-family:'JetBrains Mono', monospace; font-size:13px; color:var(--accent); }
+
+  section{ margin-top:52px; }
+  h2{ font-size:22px; margin:0 0 6px; }
+  .section-note{ color:var(--muted); font-size:15px; margin:0 0 20px; max-width:58ch; }
+
+  .broken-pipe{
+    display:flex; align-items:center; gap:12px; flex-wrap:wrap;
+    background:var(--code-bg); border-radius:12px; padding:22px 20px;
+  }
+  .pbox{
+    font-family:'JetBrains Mono', monospace; font-size:14px;
+    color:var(--code-text); background:rgba(255,255,255,0.06);
+    padding:8px 14px; border-radius:8px; white-space:nowrap;
+  }
+  .parrow{ color:var(--danger); font-size:18px; position:relative; }
+  .parrow.dead::after{
+    content:"✕"; position:absolute; top:-16px; left:50%; transform:translateX(-50%);
+    font-size:12px; color:var(--danger);
+  }
+  .parrow.ok{ color:var(--code-muted); }
+
+  .pipeline{
+    display:flex; align-items:center; gap:0; flex-wrap:wrap;
+    background:var(--code-bg); border-radius:12px; padding:22px 20px;
+  }
+  .pipe-step{
+    font-family:'JetBrains Mono', monospace; font-size:13.5px;
+    color:var(--code-text); background:rgba(255,255,255,0.06);
+    padding:8px 14px; border-radius:8px; white-space:nowrap;
+  }
+  .pipe-arrow{ color:var(--code-muted); padding:0 10px; font-size:15px; }
+
+  .why-box{
+    margin-top:16px; font-size:15px; padding:14px 16px;
+    background:var(--surface-2); border-radius:9px; color:var(--text);
+  }
+  .why-box b{ color:var(--danger); }
+
+  .codec-grid{ display:grid; gap:14px; grid-template-columns:1fr 1fr; margin-top:8px; }
+  @media (max-width:560px){ .codec-grid{ grid-template-columns:1fr; } }
+  .codec-card{
+    background:var(--surface); border:1px solid var(--border); border-radius:12px; padding:18px;
+  }
+  .codec-card .name{ font-family:'JetBrains Mono', monospace; font-weight:700; font-size:16px; margin-bottom:6px; }
+  .codec-card.alpha .name{ color:var(--alpha-yes); }
+  .codec-card.noalpha .name{ color:var(--alpha-no); }
+  .codec-card .tag{
+    display:inline-block; font-size:11.5px; font-weight:700; letter-spacing:0.04em;
+    text-transform:uppercase; padding:3px 8px; border-radius:5px; margin-bottom:10px;
+  }
+  .codec-card.alpha .tag{ background:color-mix(in srgb, var(--alpha-yes) 18%, transparent); color:var(--alpha-yes); }
+  .codec-card.noalpha .tag{ background:color-mix(in srgb, var(--alpha-no) 18%, transparent); color:var(--alpha-no); }
+  .codec-card .desc{ font-size:14px; color:var(--muted); }
+
+  .info-grid{ display:grid; gap:14px; grid-template-columns:1fr 1fr; margin-top:8px; }
+  @media (max-width:560px){ .info-grid{ grid-template-columns:1fr; } }
+  .info-card{ background:var(--surface-2); border-radius:10px; padding:16px; }
+  .info-card .h{ font-weight:600; font-size:14.5px; margin-bottom:6px; }
+  .info-card .d{ font-size:14px; color:var(--muted); }
+
+  .tip-box{
+    margin-top:8px; display:flex; gap:12px; align-items:flex-start;
+    background:var(--accent-soft); border-radius:10px; padding:16px;
+  }
+  .tip-box .icon{ font-size:18px; line-height:1; }
+  .tip-box .d{ font-size:14.5px; color:var(--text); }
+
+  ol.steps{ list-style:none; margin:20px 0 0; padding:0; display:grid; gap:12px; }
+  ol.steps li{ display:flex; gap:14px; background:var(--surface); border:1px solid var(--border); border-radius:10px; padding:14px 16px; align-items:flex-start; }
+  ol.steps .num{
+    font-family:'JetBrains Mono', monospace; font-weight:700; color:var(--accent);
+    background:var(--accent-soft); width:26px; height:26px; border-radius:7px;
+    display:flex; align-items:center; justify-content:center; font-size:13px; flex-shrink:0;
+  }
+  ol.steps span.desc{ color:var(--muted); font-size:14.5px; }
+
+  .final-rule{
+    margin-top:20px; text-align:center; padding:24px;
+    background:var(--code-bg); border-radius:12px;
+  }
+  .final-rule .eq{
+    font-family:'JetBrains Mono', monospace; font-size:clamp(22px,5vw,30px);
+    font-weight:700; color:var(--code-text);
+  }
+  .final-rule .eq .no{ color:var(--danger); }
+
+  footer{ margin-top:64px; padding-top:20px; border-top:1px solid var(--border); color:var(--muted); font-size:13.5px; }
+</style>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@600;700&family=Public+Sans:wght@400;500;600&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+</head>
+<body>
+<main>
+  <a class="backlink" href="../index.html">&larr; All guides</a>
+  <div class="eyebrow">Motion Graphics 3</div>
+  <h1>Rendering 101</h1>
+  <p class="lede">How to actually get a finished file out of whatever you built your animation in. Works no matter what you used to build it, or what you're editing in.</p>
+  <p class="lede">This is the part people skip. You build something great, then export it wrong, and it looks worse than what was on your screen. Here's the fix.</p>
+
+  <div class="quickref">
+    <div class="qcard">
+      <div class="stagenum">1</div>
+      <div class="label">Build tool</div>
+      <div class="sub">Render an intermediate file</div>
+      <div class="out">ProRes 422 / 4444</div>
+    </div>
+    <div class="qcard">
+      <div class="stagenum">2</div>
+      <div class="label">Video editor</div>
+      <div class="sub">Colour grade, edit, export final</div>
+      <div class="out">H.264 / MP4</div>
+    </div>
+  </div>
+
+  <section>
+    <h2>Rule #1: your build tool is not your delivery tool</h2>
+    <p class="section-note">After Effects, Blender, whatever you used to build your animation, that's where you build. It's not built to be where you deliver from.</p>
+    <div class="broken-pipe">
+      <div class="pbox">Build Tool</div>
+      <div class="parrow dead">→</div>
+      <div class="pbox">Final File</div>
+    </div>
+    <p class="section-note" style="margin-top:14px;">Don't render your final file straight out of your build tool. Ever.</p>
+  </section>
+
+  <section>
+    <h2>Two stages</h2>
+    <div class="pipeline">
+      <div class="pipe-step">Build Tool</div><div class="pipe-arrow">→</div>
+      <div class="pipe-step">Intermediate File</div><div class="pipe-arrow">→</div>
+      <div class="pipe-step">Video Editor</div><div class="pipe-arrow">→</div>
+      <div class="pipe-step">Final File</div>
+    </div>
+    <div class="why-box"><b>Why two stages?</b> If you export your final format directly, you're locked in. No colour pass, no fixing a bad frame, no re-export in a different format if someone asks.</div>
+  </section>
+
+  <section>
+    <h2>Stage 1: render your intermediate</h2>
+    <p class="section-note">In your build tool's render queue, export <b>ProRes</b>. Two flavours, and the choice comes down to one question: does this need to keep transparency?</p>
+    <div class="codec-grid">
+      <div class="codec-card noalpha">
+        <div class="tag">No alpha</div>
+        <div class="name">ProRes 422</div>
+        <div class="desc">Use this for anything with a solid background.</div>
+      </div>
+      <div class="codec-card alpha">
+        <div class="tag">Alpha</div>
+        <div class="name">ProRes 4444</div>
+        <div class="desc">Use this if you need the transparency channel carried through.</div>
+      </div>
+    </div>
+    <p class="section-note" style="margin-top:14px;">This file will be big. That's fine, it's not the final, it's a stepping stone.</p>
+  </section>
+
+  <section>
+    <h2>Stage 2: finish in a real video editor</h2>
+    <p class="section-note">Bring your intermediate file into a proper video editor. Do your colour grade, your edit, whatever pass it needs.</p>
+    <p class="section-note">Export your actual final file from there, not from your build tool. For most projects, that's <b style="color:var(--text)">H.264 in an MP4 container</b>.</p>
+  </section>
+
+  <section>
+    <h2>Frame rate and compression</h2>
+    <div class="info-grid">
+      <div class="info-card">
+        <div class="h">Frame rate</div>
+        <div class="d">Depends on the project: 24, 30, or 60fps, no single standard. Match whatever your comp was built at, and don't change it at export.</div>
+      </div>
+      <div class="info-card">
+        <div class="h">Compression</div>
+        <div class="d">No fixed rule either. Depends on the project and what it's for. Use your judgement, or ask if you're not sure.</div>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <h2>Build a template</h2>
+    <div class="tip-box">
+      <div class="icon">💡</div>
+      <div class="d">Set up your render queue settings and your editor's export settings once, then save them as a template. Every project after that is a couple of clicks instead of rebuilding it from scratch.</div>
+    </div>
+  </section>
+
+  <section>
+    <h2>The whole rule</h2>
+    <p class="section-note">Same rule applies no matter what you built with:</p>
+    <ol class="steps">
+      <li><span class="num">1</span><div><b>Render an intermediate</b><br><span class="desc">Out of your build tool, usually an image sequence, for flexibility.</span></div></li>
+      <li><span class="num">2</span><div><b>Composite and finish</b><br><span class="desc">Bring it into your editor, if needed.</span></div></li>
+      <li><span class="num">3</span><div><b>Export your final file</b><br><span class="desc">From the editor, not the build tool.</span></div></li>
+    </ol>
+    <div class="final-rule"><div class="eq">Build <span class="no">≠</span> Deliver</div></div>
+    <p class="lede" style="margin-top:20px;">That's the whole thing, and it doesn't change no matter what software you're using.</p>
+  </section>
+
+  <footer>Motion Graphics 3: reference resource</footer>
+</main>
+</body>
+</html>

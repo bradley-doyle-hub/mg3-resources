@@ -1,0 +1,195 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>File & Folder Naming — Motion Graphics 3</title>
+<style>
+  :root{
+    --bg:#eef0f4;
+    --surface:#ffffff;
+    --surface-2:#f4f5f8;
+    --text:#14161a;
+    --muted:#5b6270;
+    --border:#dde0e6;
+    --accent:#2b5fb0;
+    --accent-soft:#e4ecfb;
+    --seg-assignment:#2b5fb0;
+    --seg-identifier:#0d7377;
+    --seg-phase:#b06a1f;
+    --seg-version:#7a3fc4;
+    --code-bg:#14161c;
+    --code-text:#e9edf2;
+    --code-muted:#8b93a3;
+    color-scheme:light;
+  }
+  @media (prefers-color-scheme: dark){
+    :root:not([data-theme="light"]){
+      --bg:#0f1115; --surface:#171a20; --surface-2:#1d2129; --text:#eceef2; --muted:#9aa2b1;
+      --border:#2a2f3a; --accent:#7ba3e8; --accent-soft:#1e2a42; --seg-assignment:#7ba3e8;
+      --seg-identifier:#5fd0cf; --seg-phase:#e3a75c; --seg-version:#c19ef0;
+      --code-bg:#0a0b0e; --code-text:#e9edf2; --code-muted:#727a8a; color-scheme:dark;
+    }
+  }
+  :root[data-theme="dark"]{
+    --bg:#0f1115; --surface:#171a20; --surface-2:#1d2129; --text:#eceef2; --muted:#9aa2b1;
+    --border:#2a2f3a; --accent:#7ba3e8; --accent-soft:#1e2a42; --seg-assignment:#7ba3e8;
+    --seg-identifier:#5fd0cf; --seg-phase:#e3a75c; --seg-version:#c19ef0;
+    --code-bg:#0a0b0e; --code-text:#e9edf2; --code-muted:#727a8a; color-scheme:dark;
+  }
+  * { box-sizing:border-box; }
+  html,body{ margin:0; }
+  body{
+    background:var(--bg); color:var(--text);
+    font-family:'Public Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+    line-height:1.55; padding-inline:20px;
+  }
+  h1,h2,h3{ font-family:'Sora', -apple-system, sans-serif; letter-spacing:-0.01em; text-wrap:balance; }
+  code, .mono{ font-family:'JetBrains Mono', ui-monospace, monospace; }
+  main{ max-width:760px; margin:0 auto; padding-block:32px 80px; }
+  a.backlink{ color:var(--muted); font-size:13.5px; text-decoration:none; }
+  a.backlink:hover{ color:var(--accent); }
+
+  .eyebrow{
+    display:inline-flex; align-items:center; gap:8px; font-size:12.5px; font-weight:600;
+    letter-spacing:0.08em; text-transform:uppercase; color:var(--accent); margin:24px 0 14px;
+  }
+  .eyebrow::before{ content:""; width:7px; height:7px; border-radius:2px; background:var(--accent); display:inline-block; }
+  h1{ font-size:clamp(28px,5vw,38px); margin:0 0 14px; }
+  .lede{ font-size:17px; color:var(--muted); max-width:56ch; margin:0 0 8px; }
+  .warn{ font-size:15px; color:var(--text); background:var(--surface-2); border:1px solid var(--border); border-radius:10px; padding:14px 16px; margin-top:24px; }
+  .warn b{ color:var(--seg-phase); }
+
+  .quickref{ margin-top:36px; display:grid; gap:12px; grid-template-columns:1fr 1fr; }
+  @media (max-width:560px){ .quickref{ grid-template-columns:1fr; } }
+  .qcard{ background:var(--surface); border:1px solid var(--border); border-radius:12px; padding:18px 18px 16px; }
+  .qcard .label{ font-size:12px; font-weight:600; text-transform:uppercase; letter-spacing:0.06em; color:var(--muted); margin-bottom:10px; }
+  .qcard code{ display:block; font-size:14px; background:var(--code-bg); color:var(--code-text); padding:10px 12px; border-radius:8px; overflow-x:auto; white-space:pre; }
+  .qcard .example{ font-size:13px; color:var(--muted); margin-top:10px; }
+  .qcard .example code{ display:inline; background:none; color:var(--accent); padding:0; border-radius:0; font-weight:600; }
+
+  section{ margin-top:52px; }
+  h2{ font-size:22px; margin:0 0 6px; }
+  .section-note{ color:var(--muted); font-size:15px; margin:0 0 20px; max-width:58ch; }
+
+  .pattern-block{ background:var(--code-bg); border-radius:12px; padding:22px 20px; overflow-x:auto; }
+  .pattern-line{ font-size:clamp(14px,3.6vw,19px); white-space:pre; color:var(--code-text); }
+  .seg{ padding:2px 3px; border-radius:4px; }
+  .seg-assignment{ color:var(--seg-assignment); background:color-mix(in srgb, var(--seg-assignment) 16%, transparent); }
+  .seg-identifier{ color:var(--seg-identifier); background:color-mix(in srgb, var(--seg-identifier) 16%, transparent); }
+  .seg-phase{ color:var(--seg-phase); background:color-mix(in srgb, var(--seg-phase) 16%, transparent); }
+  .seg-version{ color:var(--seg-version); background:color-mix(in srgb, var(--seg-version) 16%, transparent); }
+  .seg-plain{ color:var(--code-muted); }
+
+  .legend{ display:flex; flex-wrap:wrap; gap:10px 18px; margin-top:16px; }
+  .legend-item{ display:flex; align-items:center; gap:7px; font-size:13.5px; color:var(--muted); }
+  .swatch{ width:10px; height:10px; border-radius:3px; flex-shrink:0; }
+
+  .phases{ display:flex; align-items:center; gap:0; margin-top:8px; flex-wrap:wrap; }
+  .phase-pill{ font-family:'JetBrains Mono', monospace; font-size:13.5px; background:var(--surface); border:1px solid var(--border); color:var(--text); padding:8px 14px; border-radius:999px; white-space:nowrap; }
+  .phase-arrow{ color:var(--muted); padding:0 8px; font-size:15px; }
+
+  .trust-line{ margin-top:18px; font-size:15px; color:var(--muted); }
+  .trust-line b{ color:var(--text); }
+
+  ol.moments{ list-style:none; margin:20px 0 0; padding:0; display:grid; gap:12px; }
+  ol.moments li{ display:flex; gap:14px; background:var(--surface); border:1px solid var(--border); border-radius:10px; padding:14px 16px; align-items:flex-start; }
+  ol.moments .num{ font-family:'JetBrains Mono', monospace; font-weight:700; color:var(--accent); background:var(--accent-soft); width:26px; height:26px; border-radius:7px; display:flex; align-items:center; justify-content:center; font-size:13px; flex-shrink:0; }
+  ol.moments b{ display:block; margin-bottom:2px; }
+  ol.moments span.desc{ color:var(--muted); font-size:14.5px; }
+
+  .rules{ margin-top:20px; display:grid; gap:10px; }
+  .rule{ display:flex; gap:10px; align-items:flex-start; font-size:15px; padding:12px 14px; background:var(--surface-2); border-radius:9px; }
+  .rule::before{ content:"•"; color:var(--accent); font-weight:700; flex-shrink:0; }
+
+  footer{ margin-top:64px; padding-top:20px; border-top:1px solid var(--border); color:var(--muted); font-size:13.5px; }
+</style>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@600;700&family=Public+Sans:wght@400;500;600&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+</head>
+<body>
+<main>
+  <a class="backlink" href="../index.html">&larr; All guides</a>
+  <div class="eyebrow">Motion Graphics 3</div>
+  <h1>File &amp; Folder Naming</h1>
+  <p class="lede">How to organise your project files so you can find things. A mess doesn't cost you time or marks later, this does. Works for any tool, any project, in this course or after it.</p>
+  <p class="lede">You will lose track of a file at some point. Everyone does. The question is whether it costs you five seconds or twenty minutes when it happens.</p>
+
+  <div class="quickref">
+    <div class="qcard">
+      <div class="label">Project folder</div>
+      <code>Assignment - Project Name</code>
+      <div class="example">e.g. <code>SeamlessLoop - BouncingBall</code></div>
+    </div>
+    <div class="qcard">
+      <div class="label">Project file</div>
+      <code>Assignment_Identifier_Phase_Version</code>
+      <div class="example">e.g. <code>SeamlessLoop_BouncingBall_RoughCut_001</code></div>
+    </div>
+  </div>
+
+  <section>
+    <h2>Your project folder</h2>
+    <p class="section-note">One folder per project. Name it so you know what it is without opening it.</p>
+    <div class="pattern-block">
+      <div class="pattern-line"><span class="seg seg-assignment">Assignment</span><span class="seg-plain"> - </span><span class="seg seg-identifier">Project Name</span></div>
+    </div>
+    <div class="legend">
+      <div class="legend-item"><span class="swatch" style="background:var(--seg-assignment)"></span>Assignment</div>
+      <div class="legend-item"><span class="swatch" style="background:var(--seg-identifier)"></span>Project name</div>
+    </div>
+  </section>
+
+  <section>
+    <h2>Your project files</h2>
+    <p class="section-note">Inside the folder, working files follow their own pattern. One glance tells you what a file is, what stage it's at, and which version you're looking at.</p>
+    <div class="pattern-block">
+      <div class="pattern-line"><span class="seg seg-assignment">SeamlessLoop</span><span class="seg-plain">_</span><span class="seg seg-identifier">BouncingBall</span><span class="seg-plain">_</span><span class="seg seg-phase">RoughCut</span><span class="seg-plain">_</span><span class="seg seg-version">001</span></div>
+    </div>
+    <div class="legend">
+      <div class="legend-item"><span class="swatch" style="background:var(--seg-assignment)"></span>Assignment</div>
+      <div class="legend-item"><span class="swatch" style="background:var(--seg-identifier)"></span>Identifier</div>
+      <div class="legend-item"><span class="swatch" style="background:var(--seg-phase)"></span>Phase</div>
+      <div class="legend-item"><span class="swatch" style="background:var(--seg-version)"></span>Version</div>
+    </div>
+    <p class="trust-line"><b>Trust the name, not the timestamp.</b> You won't remember which file was newer just by when it was last saved.</p>
+  </section>
+
+  <section>
+    <h2>Phases</h2>
+    <p class="section-note">As a project moves forward, the phase in the file name moves with it.</p>
+    <div class="phases">
+      <span class="phase-pill">Motion Test</span><span class="phase-arrow">→</span>
+      <span class="phase-pill">Rough Cut</span><span class="phase-arrow">→</span>
+      <span class="phase-pill">Fine Cut</span><span class="phase-arrow">→</span>
+      <span class="phase-pill">Final Cut</span>
+    </div>
+  </section>
+
+  <section>
+    <h2>Versions</h2>
+    <p class="section-note">Numbered, three digits, incrementing: <code class="mono">_001</code>, <code class="mono">_002</code>, <code class="mono">_003</code>...</p>
+    <div class="warn">Don't overwrite a rough cut with a fine cut. Save a new one. <b>Disk space is cheap. Redone work isn't.</b></div>
+
+    <p class="section-note" style="margin-top:24px;">Save a new version when:</p>
+    <ol class="moments">
+      <li><span class="num">1</span><div><b>Starting a session</b><span class="desc">Before you touch anything, save a backup point.</span></div></li>
+      <li><span class="num">2</span><div><b>Before a major change</b><span class="desc">About to try something that might not work? Save first.</span></div></li>
+      <li><span class="num">3</span><div><b>After a milestone</b><span class="desc">Just nailed something tricky? Lock it in before you keep going.</span></div></li>
+    </ol>
+  </section>
+
+  <section>
+    <h2>The whole system</h2>
+    <div class="rules">
+      <div class="rule">Name your project folder clearly.</div>
+      <div class="rule">Keep your working files versioned.</div>
+      <div class="rule">Never save over your only copy of something that worked.</div>
+    </div>
+    <p class="lede" style="margin-top:20px;">That's it. Scales from a five-minute exercise up to a full client project.</p>
+  </section>
+
+  <footer>Motion Graphics 3: reference resource</footer>
+</main>
+</body>
+</html>
