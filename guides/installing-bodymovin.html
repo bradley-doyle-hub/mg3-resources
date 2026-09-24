@@ -1,0 +1,336 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Installing Bodymovin — Motion Graphics 3</title>
+<style>
+  :root{
+    --bg:#F4F1EA;
+    --surface:#FAF8F3;
+    --surface-2:#E8E3D6;
+    --text:#0E0E0E;
+    --muted:#6B6962;
+    --border:rgba(14,14,14,0.12);
+    --accent:#1D5C6B;
+    --accent-soft:#DCE8E9;
+    --code-bg:#0E0E0E;
+    --code-text:#F4F1EA;
+    --code-muted:#9C9686;
+    color-scheme:light;
+  }
+  @media (prefers-color-scheme: dark){
+    :root:not([data-theme="light"]){
+      --bg:#1A1A1A; --surface:#2A2926; --surface-2:#363228; --text:#F4F1EA; --muted:#A9A392;
+      --border:rgba(244,241,234,0.14); --accent:#5FB3C4; --accent-soft:#1C3236;
+      --code-bg:#0E0E0E; --code-text:#F4F1EA; --code-muted:#8f8a7c; color-scheme:dark;
+    }
+  }
+  :root[data-theme="dark"]{
+    --bg:#1A1A1A; --surface:#2A2926; --surface-2:#363228; --text:#F4F1EA; --muted:#A9A392;
+    --border:rgba(244,241,234,0.14); --accent:#5FB3C4; --accent-soft:#1C3236;
+    --code-bg:#0E0E0E; --code-text:#F4F1EA; --code-muted:#8f8a7c; color-scheme:dark;
+  }
+  * { box-sizing:border-box; }
+  html,body{ margin:0; }
+  body{
+    background:var(--bg); color:var(--text);
+    font-family:'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+    line-height:1.55; padding-inline:20px;
+  }
+  h1,h2,h3{ font-family:'Inter', -apple-system, sans-serif; font-weight:700; letter-spacing:-0.02em; text-wrap:balance; }
+  code, .mono{ font-family:'JetBrains Mono', ui-monospace, monospace; }
+  main{ max-width:760px; margin:0 auto; padding-block:32px 80px; }
+  a.backlink{ color:var(--muted); font-size:13.5px; text-decoration:none; }
+  a.backlink:hover{ color:var(--accent); }
+
+  .eyebrow{
+    display:inline-flex; align-items:center; gap:8px;
+    font-size:12.5px; font-weight:600; letter-spacing:0.08em;
+    text-transform:uppercase; color:var(--accent); margin:24px 0 14px;
+  }
+  .eyebrow::before{ content:""; width:7px; height:7px; border-radius:2px; background:var(--accent); display:inline-block; }
+  h1{ font-size:clamp(28px,5vw,38px); margin:0 0 14px; }
+  .lede{ font-size:17px; color:var(--muted); max-width:56ch; margin:0 0 8px; }
+
+  section{ margin-top:52px; }
+  h2{ font-size:22px; margin:0 0 6px; }
+  .section-note{ color:var(--muted); font-size:15px; margin:0 0 20px; max-width:58ch; }
+
+  /* benefits list */
+  .benefits{ margin:20px 0 0; display:grid; gap:10px; }
+  .benefit{ display:flex; gap:10px; align-items:flex-start; font-size:15px; padding:12px 14px; background:var(--surface-2); border-radius:6px; }
+  .benefit::before{ content:"•"; color:var(--accent); font-weight:700; flex-shrink:0; }
+
+  /* format comparison table */
+  .table-wrap{ margin-top:20px; overflow-x:auto; border:1px solid var(--border); border-radius:8px; }
+  table.formats{ width:100%; border-collapse:collapse; font-size:14px; min-width:520px; }
+  table.formats th{
+    text-align:left; background:var(--accent-soft); color:var(--accent);
+    font-size:12px; font-weight:700; text-transform:uppercase; letter-spacing:0.04em;
+    padding:10px 14px; border-bottom:1px solid var(--border);
+  }
+  table.formats td{ padding:10px 14px; border-bottom:1px solid var(--border); color:var(--text); }
+  table.formats tr:last-child td{ border-bottom:none; }
+  table.formats tr.highlight td{ background:var(--surface); font-weight:600; }
+  table.formats td.muted{ color:var(--muted); font-weight:400; }
+
+  .tip-box{
+    margin-top:16px; display:flex; gap:12px; align-items:flex-start;
+    background:var(--accent-soft); border-radius:6px; padding:16px;
+  }
+  .tip-box .icon{ font-size:18px; line-height:1; }
+  .tip-box .d{ font-size:14.5px; color:var(--text); }
+  .tip-box .d b{ display:block; margin-bottom:4px; }
+
+  .warn{ font-size:15px; color:var(--text); background:var(--surface-2); border:1px solid var(--border); border-radius:8px; padding:14px 16px; margin-top:8px; }
+
+  /* video embed */
+  .video-frame{
+    margin-top:20px; position:relative; width:100%; aspect-ratio:16/9;
+    background:var(--code-bg); border-radius:8px; overflow:hidden;
+  }
+  .video-frame iframe{ position:absolute; inset:0; width:100%; height:100%; border:0; }
+  .video-placeholder{
+    position:absolute; inset:0; display:flex; flex-direction:column; align-items:center; justify-content:center;
+    gap:10px; color:var(--code-text);
+  }
+  .video-placeholder .play{
+    width:52px; height:52px; border-radius:50%; background:rgba(244,241,234,0.12);
+    display:flex; align-items:center; justify-content:center; font-size:20px;
+  }
+  .video-placeholder .label{ font-size:14px; color:var(--code-muted); }
+
+  /* collapsible written guide */
+  details.guide{
+    margin-top:20px; background:var(--surface); border:1px solid var(--border); border-radius:8px; overflow:hidden;
+  }
+  details.guide summary{
+    cursor:pointer; list-style:none; padding:18px 20px; font-weight:600; font-size:16px;
+    display:flex; align-items:center; justify-content:space-between; gap:12px;
+  }
+  details.guide summary::-webkit-details-marker{ display:none; }
+  details.guide summary::after{
+    content:"+"; font-size:20px; font-weight:400; color:var(--accent); flex-shrink:0;
+    transition:transform 0.15s ease;
+  }
+  details.guide[open] summary::after{ content:"–"; }
+  details.guide summary:hover{ background:var(--surface-2); }
+  details.guide .guide-body{ padding:4px 20px 24px; border-top:1px solid var(--border); }
+
+  ol.written-steps{ list-style:none; margin:20px 0 0; padding:0; display:grid; gap:28px; }
+  ol.written-steps li{ display:flex; gap:16px; align-items:flex-start; }
+  ol.written-steps .num{
+    font-family:'JetBrains Mono', monospace; font-weight:700; color:var(--accent);
+    background:var(--accent-soft); width:28px; height:28px; border-radius:6px;
+    display:flex; align-items:center; justify-content:center; font-size:13px; flex-shrink:0; margin-top:2px;
+  }
+  ol.written-steps .step-title{ font-weight:600; font-size:15.5px; margin-bottom:4px; }
+  ol.written-steps .step-desc{ color:var(--muted); font-size:14.5px; margin:0 0 12px; max-width:56ch; }
+  ol.written-steps .shots{ display:flex; flex-wrap:wrap; gap:10px; }
+  ol.written-steps figure{ margin:0; max-width:340px; flex:1 1 260px; }
+  ol.written-steps img{ display:block; width:100%; height:auto; border-radius:6px; border:1px solid var(--border); }
+  ol.written-steps figcaption{ font-size:12.5px; color:var(--muted); margin-top:5px; }
+
+  .done-box{
+    margin-top:24px; padding:20px 22px; background:var(--surface-2); border-radius:8px;
+    display:flex; align-items:center; gap:14px;
+  }
+  .done-box .mark{
+    flex-shrink:0; width:32px; height:32px; border-radius:50%; background:var(--accent-soft);
+    color:var(--accent); display:flex; align-items:center; justify-content:center; font-weight:700;
+  }
+  .done-box .d{ font-size:15px; }
+  .done-box .d b{ display:block; font-size:16px; margin-bottom:2px; }
+
+  footer{ margin-top:64px; padding-top:20px; border-top:1px solid var(--border); color:var(--muted); font-size:13.5px; }
+</style>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+</head>
+<body>
+<main>
+  <a class="backlink" href="../index.html">&larr; All guides</a>
+  <div class="eyebrow">Motion Graphics 3</div>
+  <h1>Installing Bodymovin</h1>
+  <p class="lede">Bodymovin is the After Effects extension that exports your animation as a Lottie file. Here's why that format matters, the walkthrough video, and the full written steps if you'd rather read than watch.</p>
+
+  <section>
+    <h2>Why Lottie</h2>
+    <p class="section-note">This week's assignment moves off GIF and onto a lightweight, code-friendly format built entirely from vector shapes.</p>
+    <div class="benefits">
+      <div class="benefit">Smaller file size, by a wide margin.</div>
+      <div class="benefit">Scales to any resolution without losing quality.</div>
+      <div class="benefit">Plays back with real transparency.</div>
+      <div class="benefit">Can be styled or controlled with code.</div>
+    </div>
+
+    <p class="section-note" style="margin-top:28px;"><b style="color:var(--text)">Why it matters:</b> the same 5-second loop can be roughly 40KB as Lottie, 300KB as WebM, or 9MB as a GIF. On a real page, that's the difference between invisible and something nobody waits for.</p>
+    <div class="table-wrap">
+      <table class="formats">
+        <thead>
+          <tr><th>Format</th><th>Typical size (5s loop)</th><th>Transparency</th><th>Best for</th></tr>
+        </thead>
+        <tbody>
+          <tr class="highlight"><td>Lottie (JSON)</td><td>10–150KB</td><td>Yes</td><td>UI motion, icons, illustrated animation</td></tr>
+          <tr><td>WebM / MP4</td><td>150KB–1.5MB</td><td class="muted">WebM: yes · MP4: no</td><td>Filmed or rendered content, social platforms</td></tr>
+          <tr><td>Animated WebP</td><td>200KB–2MB</td><td>Yes</td><td>Direct GIF replacement</td></tr>
+          <tr><td>GIF</td><td>2–15MB</td><td class="muted">Binary only</td><td>Email, or platforms that accept nothing else</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="tip-box">
+      <div class="icon">💡</div>
+      <div class="d"><b>The quick rule:</b> illustrated or UI motion → Lottie. Filmed or rendered content → WebM, with an MP4 fallback. About to reach for a GIF? Use animated WebP instead, unless it's going in an email.</div>
+    </div>
+  </section>
+
+  <section>
+    <h2>Watch the walkthrough</h2>
+    <p class="section-note">One-time setup. Once Bodymovin's installed, you're good for the rest of the semester.</p>
+    <div class="video-frame">
+      <!--
+        Once the video's uploaded to YouTube, replace the .video-placeholder div below with:
+        <iframe src="https://www.youtube.com/embed/VIDEO_ID" title="Installing Bodymovin"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                allowfullscreen></iframe>
+      -->
+      <div class="video-placeholder">
+        <div class="play">▶</div>
+        <div class="label">Video coming soon</div>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <details class="guide">
+      <summary>Full written guide, with screenshots (13 steps)</summary>
+      <div class="guide-body">
+        <ol class="written-steps">
+          <li>
+            <span class="num">1</span>
+            <div>
+              <div class="step-title">Navigate to AEscripts</div>
+              <p class="step-desc">Go to <code class="mono">aescripts.com</code> in your web browser.</p>
+              <div class="shots"><figure><img src="assets/bodymovin/step-01.webp" alt="Browser address bar showing aescripts.com" loading="lazy"><figcaption>aescripts.com</figcaption></figure></div>
+            </div>
+          </li>
+          <li>
+            <span class="num">2</span>
+            <div>
+              <div class="step-title">Log in or sign up</div>
+              <p class="step-desc">Click the profile icon in the top right menu to log in or create a new account.</p>
+              <div class="shots"><figure><img src="assets/bodymovin/step-02.webp" alt="Profile icon dropdown menu on aescripts.com" loading="lazy"><figcaption>Profile menu</figcaption></figure></div>
+            </div>
+          </li>
+          <li>
+            <span class="num">3</span>
+            <div>
+              <div class="step-title">Search for Bodymovin</div>
+              <p class="step-desc">Type "Bodymovin" into the search bar and select <b style="color:var(--text)">Bodymovin - Lottie</b> from the dropdown results.</p>
+              <div class="shots"><figure><img src="assets/bodymovin/step-03.webp" alt="Search dropdown showing the Bodymovin - Lottie product" loading="lazy"><figcaption>Search results</figcaption></figure></div>
+            </div>
+          </li>
+          <li>
+            <span class="num">4</span>
+            <div>
+              <div class="step-title">"Purchase" the plugin</div>
+              <p class="step-desc">Enter <code class="mono">0</code> (or your preferred amount) in the "Name Your Own Price" field, click Add to Cart, and complete checkout.</p>
+              <div class="shots"><figure><img src="assets/bodymovin/step-04.webp" alt="Name Your Own Price field set to $0.00 next to the Add to Cart button" loading="lazy"><figcaption>Name Your Own Price: $0</figcaption></figure></div>
+            </div>
+          </li>
+          <li>
+            <span class="num">5</span>
+            <div>
+              <div class="step-title">Access your downloads</div>
+              <p class="step-desc">Click the profile icon again and select <b style="color:var(--text)">Downloads &amp; Licenses</b>.</p>
+              <div class="shots"><figure><img src="assets/bodymovin/step-05.webp" alt="Account dropdown menu highlighting Downloads and Licenses" loading="lazy"><figcaption>Downloads &amp; Licenses</figcaption></figure></div>
+            </div>
+          </li>
+          <li>
+            <span class="num">6</span>
+            <div>
+              <div class="step-title">Download the plugin zip</div>
+              <p class="step-desc">Find Bodymovin in your product list and click Download to save the zip file to your machine.</p>
+              <div class="shots"><figure><img src="assets/bodymovin/step-06.webp" alt="Download button on the Bodymovin license page" loading="lazy"><figcaption>Bodymovin license page</figcaption></figure></div>
+            </div>
+          </li>
+          <li>
+            <span class="num">7</span>
+            <div>
+              <div class="step-title">Navigate to the Support menu</div>
+              <p class="step-desc">Scroll back to the top of the AEscripts page and click <b style="color:var(--text)">Support</b> in the main navigation bar.</p>
+            </div>
+          </li>
+          <li>
+            <span class="num">8</span>
+            <div>
+              <div class="step-title">Select ZXP Installer</div>
+              <p class="step-desc">In the Support dropdown, under the "Tools" column, click <b style="color:var(--text)">ZXP Installer</b>.</p>
+            </div>
+          </li>
+          <li>
+            <span class="num">9</span>
+            <div>
+              <div class="step-title">Download the installer</div>
+              <p class="step-desc">On the ZXP Installer page, click Download macOS or Download Windows depending on your system.</p>
+              <div class="shots"><figure><img src="assets/bodymovin/step-09.webp" alt="ZXP/UXP Installer page with Download macOS and Download Windows buttons" loading="lazy"><figcaption>ZXP/UXP Installer download page</figcaption></figure></div>
+            </div>
+          </li>
+          <li>
+            <span class="num">10</span>
+            <div>
+              <div class="step-title">Install the ZXP Installer</div>
+              <p class="step-desc">Open the downloaded setup file and complete the install, e.g. dragging the app into your Applications folder on Mac.</p>
+              <div class="shots"><figure><img src="assets/bodymovin/step-10.webp" alt="Dragging ZXP Installer.app into the Applications folder" loading="lazy"><figcaption>Installing the ZXP Installer app</figcaption></figure></div>
+            </div>
+          </li>
+          <li>
+            <span class="num">11</span>
+            <div>
+              <div class="step-title">Extract the Bodymovin files</div>
+              <p class="step-desc">Locate the Bodymovin zip you downloaded in step 6 and extract it. Locate the <code class="mono">bodymovin.zxp</code> file inside the new folder.</p>
+              <div class="shots">
+                <figure><img src="assets/bodymovin/step-11a.webp" alt="macOS extracting the bodymovin zip file" loading="lazy"><figcaption>Extracting the zip</figcaption></figure>
+                <figure><img src="assets/bodymovin/step-11b.webp" alt="The extracted bodymovin folder in Downloads" loading="lazy"><figcaption>Extracted folder</figcaption></figure>
+                <figure><img src="assets/bodymovin/step-11c.webp" alt="The bodymovin.zxp file selected inside the extracted folder" loading="lazy"><figcaption>bodymovin.zxp</figcaption></figure>
+              </div>
+            </div>
+          </li>
+          <li>
+            <span class="num">12</span>
+            <div>
+              <div class="step-title">Install Bodymovin</div>
+              <p class="step-desc">Open the ZXP Installer app. Drag the <code class="mono">bodymovin.zxp</code> file into the window, click Install on the prompt, and wait for the success message.</p>
+              <div class="shots"><figure><img src="assets/bodymovin/step-12.webp" alt="ZXP Installer confirmation dialog: You are about to install bodymovin" loading="lazy"><figcaption>Install confirmation</figcaption></figure></div>
+            </div>
+          </li>
+          <li>
+            <span class="num">13</span>
+            <div>
+              <div class="step-title">Launch in After Effects</div>
+              <p class="step-desc">Fully quit and reopen After Effects if it was already running. Go to Window, then Extensions, then Bodymovin to open the plugin panel.</p>
+              <div class="shots">
+                <figure><img src="assets/bodymovin/step-13a.webp" alt="After Effects freshly relaunched with an empty project" loading="lazy"><figcaption>Restart After Effects</figcaption></figure>
+                <figure><img src="assets/bodymovin/step-13b.webp" alt="Window menu, Extensions submenu, with Bodymovin highlighted" loading="lazy"><figcaption>Window → Extensions → Bodymovin</figcaption></figure>
+                <figure><img src="assets/bodymovin/step-13c.webp" alt="The Bodymovin panel open inside After Effects" loading="lazy"><figcaption>Bodymovin panel open</figcaption></figure>
+              </div>
+            </div>
+          </li>
+        </ol>
+
+        <div class="warn" style="margin-top:24px;">Extensions won't show up until you fully quit and relaunch After Effects, not just close the project.</div>
+      </div>
+    </details>
+  </section>
+
+  <div class="done-box">
+    <div class="mark">✓</div>
+    <div class="d"><b>That's the install.</b> One-time setup, you're good for the rest of the semester.</div>
+  </div>
+
+  <footer>Motion Graphics 3: reference resource</footer>
+</main>
+</body>
+</html>
