@@ -35,7 +35,20 @@
   .eyebrow::before{ content:""; width:7px; height:7px; border-radius:2px; background:var(--accent); display:inline-block; }
   h1{ font-size:clamp(28px,5vw,38px); margin:0 0 14px; }
   .lede{ font-size:17px; color:var(--muted); max-width:56ch; margin:0 0 8px; }
-  .list{ margin-top:40px; display:grid; gap:12px; }
+
+  .resource-section{ margin-top:44px; }
+  .section-label{
+    font-family:'Inter', sans-serif; font-size:13px; font-weight:700; letter-spacing:0.06em;
+    text-transform:uppercase; color:var(--muted); margin:0 0 14px; padding-bottom:10px;
+    border-bottom:1px solid var(--border);
+  }
+  .section-label .tag{
+    display:inline-flex; align-items:center; margin-right:9px; padding:2px 8px 3px;
+    border-radius:999px; background:var(--accent-soft); color:var(--accent);
+    font-size:11px; letter-spacing:0.04em;
+  }
+
+  .list{ display:grid; gap:12px; }
   a.card{
     display:block; background:var(--surface); border:1px solid var(--border); border-radius:4px;
     padding:20px 22px; text-decoration:none; color:var(--text);
@@ -56,19 +69,28 @@
   <h1>Student Resources</h1>
   <p class="lede">Reference guides for this course. Software-agnostic where possible, so they still hold up after the semester.</p>
 
-  <div class="list">
-    <a class="card" href="guides/file-folder-naming.html">
-      <div class="name">File &amp; Folder Naming</div>
-      <div class="desc">How to organise project folders and files so nothing gets lost.</div>
-    </a>
-    <a class="card" href="guides/rendering-101.html">
-      <div class="name">Rendering 101</div>
-      <div class="desc">The two-stage pipeline for getting a finished file out of any build tool.</div>
-    </a>
-    <a class="card" href="guides/installing-bodymovin.html">
-      <div class="name">Installing Bodymovin</div>
-      <div class="desc">One-time setup to get Lottie export working in After Effects.</div>
-    </a>
+  <div class="resource-section">
+    <h2 class="section-label">General</h2>
+    <div class="list">
+      <a class="card" href="guides/file-folder-naming.html">
+        <div class="name">File &amp; Folder Naming</div>
+        <div class="desc">How to organise project folders and files so nothing gets lost.</div>
+      </a>
+      <a class="card" href="guides/rendering-101.html">
+        <div class="name">Rendering 101</div>
+        <div class="desc">The two-stage pipeline for getting a finished file out of any build tool.</div>
+      </a>
+    </div>
+  </div>
+
+  <div class="resource-section">
+    <h2 class="section-label"><span class="tag">Week 02</span>Seamless Loop &middot; Lottie</h2>
+    <div class="list">
+      <a class="card" href="guides/installing-bodymovin.html">
+        <div class="name">Installing Bodymovin</div>
+        <div class="desc">One-time setup to get Lottie export working in After Effects.</div>
+      </a>
+    </div>
   </div>
 
   <footer>Motion Graphics 3: reference resource, built by <a href="https://bradleydoyle.ca">Bradley Doyle</a></footer>
