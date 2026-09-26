@@ -1,4 +1,4 @@
-# Motion Graphics 3 — Student Resources
+# Motion Graphics 3 | Student Resources
 
 Reference guides for Motion Graphics 3. Hosted with GitHub Pages.
 
