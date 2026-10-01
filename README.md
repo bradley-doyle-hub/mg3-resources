@@ -5,7 +5,7 @@ Reference guides for Motion Graphics 3. Hosted with GitHub Pages.
 ## Guides
 
 - [File & Folder Naming](guides/file-folder-naming.html)
-- [Rendering 101](guides/rendering-101.html)
+- [Folder Structure](guides/folder-structure.html)
 
 ## Adding a new guide
 

@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>File & Folder Naming | Motion Graphics 3</title>
+<title>Folder Structure | Motion Graphics 3</title>
 <style>
   :root{
     --bg:#F4F1EA;
@@ -106,6 +106,17 @@
   .nextlink{ display:block; margin-top:28px; background:var(--accent-soft); border-radius:8px; padding:16px 18px; text-decoration:none; color:var(--text); font-size:15px; }
   .nextlink b{ display:block; color:var(--accent); margin-bottom:2px; }
   .nextlink:hover{ outline:1px solid var(--accent); }
+  .tree{ margin:0; background:var(--surface); border:1px solid var(--border); border-radius:8px; padding:18px 20px; overflow-x:auto; font-family:'JetBrains Mono', ui-monospace, monospace; font-size:13.5px; line-height:1.6; white-space:pre; color:var(--text); }
+  .tree .note{ color:var(--muted); }
+  .prose{ font-size:15px; max-width:62ch; margin:16px 0 0; }
+  .prose p{ margin:0 0 12px; }
+  .diagram{ margin-top:8px; background:var(--surface); border:1px solid var(--border); border-radius:12px; padding:22px 24px 8px; }
+  .diagram .caption{ font-family:'JetBrains Mono', ui-monospace, monospace; font-size:11.5px; letter-spacing:0.06em; text-transform:uppercase; color:var(--muted); padding-bottom:14px; border-bottom:1px solid var(--border); margin-bottom: 6px; }
+  .frow{ padding:10px 0; }
+  .frow.child{ padding-left:28px; }
+  .frow .fname{ display:flex; align-items:center; gap:9px; font-weight:700; font-size:15.5px; }
+  .frow .fname svg{ width:19px; height:19px; flex-shrink:0; stroke:var(--accent); fill:none; stroke-width:1.6; stroke-linecap:round; stroke-linejoin:round; }
+  .frow .fdesc{ font-family:'JetBrains Mono', ui-monospace, monospace; font-size:12px; color:var(--muted); margin:3px 0 0 28px; }
 </style>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
@@ -114,92 +125,106 @@
 <main>
   <a class="backlink" href="../index.html">&larr; All guides</a>
   <div class="eyebrow">Motion Graphics 3</div>
-  <h1>File &amp; Folder Naming</h1>
-  <p class="lede">How to name your project files so you can find things, and so a mess doesn't cost you time or marks later. Works for any tool, any project, in this course or after it.</p>
-  <p class="lede">You will lose track of a file at some point. Everyone does. The question is whether it costs you five seconds or twenty minutes when it happens. This is the five minutes that prevents that.</p>
-
-  <div class="quickref">
-    <div class="qcard">
-      <div class="label">Project folder</div>
-      <code>Assignment - Project Name</code>
-      <div class="example">e.g. <code>SeamlessLoop - BouncingBall</code></div>
-    </div>
-    <div class="qcard">
-      <div class="label">Project file</div>
-      <code>Assignment_Identifier_Phase_Version</code>
-      <div class="example">e.g. <code>SeamlessLoop_BouncingBall_RoughCut_001</code></div>
-    </div>
-  </div>
+  <h1>Folder Structure</h1>
+  <p class="lede">What goes inside your project folder, and how to split it up so you can find things.</p>
+  <p class="lede">For how to name the folder and the files in it, see <a href="file-folder-naming.html" style="color:var(--accent);">File &amp; Folder Naming</a>.</p>
 
   <section>
-    <h2>Your project folder</h2>
-    <p class="section-note">One folder per project. Name it so you know what it is without opening it. Everything for that project lives inside: your working file, your assets, your exports.</p>
-    <div class="pattern-block">
-      <div class="pattern-line"><span class="seg seg-assignment">Assignment</span><span class="seg-plain"> - </span><span class="seg seg-identifier">Project Name</span></div>
-    </div>
-    <div class="legend">
-      <div class="legend-item"><span class="swatch" style="background:var(--seg-assignment)"></span>Assignment</div>
-      <div class="legend-item"><span class="swatch" style="background:var(--seg-identifier)"></span>Project name</div>
-    </div>
-    <a class="nextlink" href="folder-structure.html"><b>What goes inside the folder?</b>See the Folder Structure guide for how to split it up.</a>
-  </section>
-
-  <section>
-    <h2>Your project files</h2>
-    <p class="section-note">Inside the folder, working files follow their own pattern. That name tells you three things at a glance: what it is, what stage it's at, and which one you're looking at.</p>
-    <div class="pattern-block">
-      <div class="pattern-line"><span class="seg seg-assignment">SeamlessLoop</span><span class="seg-plain">_</span><span class="seg seg-identifier">BouncingBall</span><span class="seg-plain">_</span><span class="seg seg-phase">RoughCut</span><span class="seg-plain">_</span><span class="seg seg-version">001</span></div>
-    </div>
-    <div class="legend">
-      <div class="legend-item"><span class="swatch" style="background:var(--seg-assignment)"></span>Assignment</div>
-      <div class="legend-item"><span class="swatch" style="background:var(--seg-identifier)"></span>Identifier</div>
-      <div class="legend-item"><span class="swatch" style="background:var(--seg-phase)"></span>Phase</div>
-      <div class="legend-item"><span class="swatch" style="background:var(--seg-version)"></span>Version</div>
-    </div>
-    <p class="trust-line"><b>Trust the name, not the timestamp.</b> You won't remember which file was newer just by when it was last saved.</p>
-  </section>
-
-  <section>
-    <h2>Make it yours</h2>
-    <div class="makeyours">
-      <p>This exact pattern is mine. Four segments, underscores, three-digit versions. That's what works for how I build things. Yours doesn't need to match it.</p>
-      <p>Swap in whatever segments mean something on your project. Different phase names, a different separator, an extra segment if you need one. Change the folder structure too, if mine doesn't fit what you're making.</p>
-      <p>None of that is the part that matters. What makes a naming system worth having isn't the pattern you pick. It's using it the same way, on every file, for the whole project. Half a system is no system. Pick something simple enough that you'll actually stick to it, then stick to it.</p>
+    <h2>The idea</h2>
+    <p class="section-note">The project folder itself is just a label. What keeps you organised is how you split up what's inside it.</p>
+    <div class="prose">
+      <p>There's no single correct way to do this. Below is a simplified version built for this course, the full version I run on client work, and one from a completely different discipline, to show the pattern holds no matter what you call things.</p>
     </div>
   </section>
 
   <section>
-    <h2>Phases</h2>
-    <p class="section-note">As a project moves forward, the phase in the file name moves with it.</p>
-    <div class="phases">
-      <span class="phase-pill">Motion Test</span><span class="phase-arrow">→</span>
-      <span class="phase-pill">Rough Cut</span><span class="phase-arrow">→</span>
-      <span class="phase-pill">Fine Cut</span><span class="phase-arrow">→</span>
-      <span class="phase-pill">Final Cut</span>
+    <h2>For this class</h2>
+    <p class="section-note">What you'll actually use this semester.</p>
+    <div class="diagram">
+      <div class="caption">Example project organization</div>
+    <div class="frow">
+      <div class="fname"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 7a2 2 0 0 1 2-2h4l2 2.5h8a2 2 0 0 1 2 2V17a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></svg>Assignment - Project Name</div>
+      <div class="fdesc">Top-level project folder</div>
+    </div>
+    <div class="frow child">
+      <div class="fname"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 7a2 2 0 0 1 2-2h4l2 2.5h8a2 2 0 0 1 2 2V17a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></svg>01 - Assets</div>
+      <div class="fdesc">Stock, reference, fonts, audio</div>
+    </div>
+    <div class="frow child">
+      <div class="fname"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 7a2 2 0 0 1 2-2h4l2 2.5h8a2 2 0 0 1 2 2V17a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></svg>02 - Production</div>
+      <div class="fdesc">Active build files, one subfolder per program</div>
+    </div>
+    <div class="frow child">
+      <div class="fname"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 7a2 2 0 0 1 2-2h4l2 2.5h8a2 2 0 0 1 2 2V17a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></svg>03 - Edit</div>
+      <div class="fdesc">Renders exported out of your build tool</div>
+    </div>
+    <div class="frow child">
+      <div class="fname"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 7a2 2 0 0 1 2-2h4l2 2.5h8a2 2 0 0 1 2 2V17a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></svg>04 - Delivery</div>
+      <div class="fdesc">Final exports only</div>
+    </div>
+    </div>
+    <div class="prose">
+      <p>Same logic as the full version. Four folders instead of five, no nested asset library. Incoming material, work in progress, and finished output, kept apart.</p>
     </div>
   </section>
 
   <section>
-    <h2>Versions</h2>
-    <p class="section-note">Numbered, three digits, incrementing: <code class="mono">_001</code>, <code class="mono">_002</code>, <code class="mono">_003</code>...</p>
-    <div class="warn">Don't overwrite a rough cut with a fine cut. Save a new one. <b>Disk space is cheap. Redone work isn't.</b></div>
-
-    <p class="section-note" style="margin-top:24px;">Save a new version when:</p>
-    <ol class="moments">
-      <li><span class="num">1</span><div><b>Starting a session</b><span class="desc">Before you touch anything, save a backup point.</span></div></li>
-      <li><span class="num">2</span><div><b>Before a major change</b><span class="desc">About to try something that might not work? Save first.</span></div></li>
-      <li><span class="num">3</span><div><b>After a milestone</b><span class="desc">Just nailed something tricky? Lock it in before you keep going.</span></div></li>
-    </ol>
+    <h2>A full production structure</h2>
+    <p class="section-note">This is what I run on client work. More structure than a class project needs, but it's the real thing.</p>
+<pre class="tree">BOC26 - Teaser Animations
+├─ 01_PRE
+│  ├─ BOARDS
+│  ├─ REF
+│  └─ SCRIPT
+├─ 02_ASSETS
+│  ├─ 3D
+│  ├─ AUDIO
+│  │  ├─ _IN
+│  │  ├─ _OUT
+│  │  ├─ MUSIC
+│  │  ├─ SFX
+│  │  └─ VOICE
+│  │     └─ CAPTURE
+│  ├─ CAMERA
+│  ├─ DESIGN
+│  │  └─ _SLATE
+│  ├─ FONT
+│  ├─ PHOTO
+│  ├─ PROXY
+│  ├─ RENDER
+│  │  └─ GUIDE
+│  └─ STOCK
+├─ 03_EDIT
+│  └─ RESOLVE
+├─ 04_PROD
+│  └─ <span class="note">(one subfolder per program: AE, C4D, Blender)</span>
+└─ 05_DELIVER</pre>
+    <div class="prose">
+      <p>Numbered so it sorts in build order. Everything you didn't make yourself lives in <code>02_ASSETS</code>, sorted by type. Everything you build lives in <code>04_PROD</code>. Final exports only in <code>05_DELIVER</code>.</p>
+    </div>
   </section>
 
   <section>
-    <h2>The whole system</h2>
+    <h2>A different discipline, same idea</h2>
+    <p class="section-note">This isn't a motion or 3D pattern. Here's a graphic design project.</p>
+<pre class="tree">ClientName - Brand Refresh
+├─ 00_Brief     <span class="note">(brief, client files, references)</span>
+├─ 01_Assets    <span class="note">(supplied logos, fonts, photography)</span>
+├─ 02_Working   <span class="note">(InDesign, Illustrator, Photoshop files, versioned)</span>
+├─ 03_Proofs    <span class="note">(exports for client review)</span>
+└─ 04_Final     <span class="note">(print-ready, final delivery files)</span></pre>
+    <div class="prose">
+      <p>Different vocabulary, same three ideas: what came in, what you're building, what's done.</p>
+    </div>
+  </section>
+
+  <section>
+    <h2>Pick one and stick to it</h2>
     <div class="rules">
-      <div class="rule">Name your project folder clearly.</div>
-      <div class="rule">Keep your working files versioned.</div>
-      <div class="rule">Never save over your only copy of something that worked.</div>
+      <div class="rule">None of these is the one correct answer.</div>
+      <div class="rule">Pick a structure and keep it consistent.</div>
+      <div class="rule">Don't mix structures mid-project.</div>
     </div>
-    <p class="lede" style="margin-top:20px;">That's it. Scales from a five-minute exercise up to a full client project.</p>
   </section>
 
   <footer>Motion Graphics 3: reference resource</footer>
