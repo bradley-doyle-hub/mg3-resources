@@ -113,7 +113,10 @@
   .diagram{ margin-top:8px; background:var(--surface); border:1px solid var(--border); border-radius:12px; padding:22px 24px 8px; }
   .diagram .caption{ font-family:'JetBrains Mono', ui-monospace, monospace; font-size:11.5px; letter-spacing:0.06em; text-transform:uppercase; color:var(--muted); padding-bottom:14px; border-bottom:1px solid var(--border); margin-bottom: 6px; }
   .frow{ padding:10px 0; }
-  .frow.child{ padding-left:28px; }
+  .frow.d1{ padding-left:28px; }
+  .frow.d2{ padding-left:56px; }
+  .frow.d3{ padding-left:84px; }
+  .frow.d4{ padding-left:112px; }
   .frow .fname{ display:flex; align-items:center; gap:9px; font-weight:700; font-size:15.5px; }
   .frow .fname svg{ width:19px; height:19px; flex-shrink:0; stroke:var(--accent); fill:none; stroke-width:1.6; stroke-linecap:round; stroke-linejoin:round; }
   .frow .fdesc{ font-family:'JetBrains Mono', ui-monospace, monospace; font-size:12px; color:var(--muted); margin:3px 0 0 28px; }
@@ -127,13 +130,132 @@
   <div class="eyebrow">Motion Graphics 3</div>
   <h1>Folder Structure</h1>
   <p class="lede">What goes inside your project folder, and how to split it up so you can find things.</p>
-  <p class="lede">For how to name the folder and the files in it, see <a href="file-folder-naming.html" style="color:var(--accent);">File &amp; Folder Naming</a>.</p>
+  <p class="lede">For how to name the folder and the files in it, see <a href="file-folder-naming.html" style="color:var(--accent);">Naming Conventions</a>.</p>
 
   <section>
     <h2>The idea</h2>
     <p class="section-note">The project folder itself is just a label. What keeps you organised is how you split up what's inside it.</p>
     <div class="prose">
-      <p>There's no single correct way to do this. Below is a simplified version built for this course, the full version I run on client work, and one from a completely different discipline, to show the pattern holds no matter what you call things.</p>
+      <p>There's no single correct way to do this. Below is the full version I run on client work, a simplified version built for this course, and one from a completely different discipline, to show the pattern holds no matter what you call things.</p>
+    </div>
+  </section>
+
+  <section>
+    <h2>A full production structure</h2>
+    <p class="section-note">This is what I run on client work. More structure than a class project needs, but it's the real thing.</p>
+    <div class="diagram">
+      <div class="caption">Example project organization</div>
+      <div class="frow d0">
+        <div class="fname"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 7a2 2 0 0 1 2-2h4l2 2.5h8a2 2 0 0 1 2 2V17a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></svg>BOC26 - Teaser Animations</div>
+        <div class="fdesc">Top-level project folder</div>
+      </div>
+      <div class="frow d1">
+        <div class="fname"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 7a2 2 0 0 1 2-2h4l2 2.5h8a2 2 0 0 1 2 2V17a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></svg>01_PRE</div>
+        <div class="fdesc">Everything before you start building</div>
+      </div>
+      <div class="frow d2">
+        <div class="fname"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 7a2 2 0 0 1 2-2h4l2 2.5h8a2 2 0 0 1 2 2V17a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></svg>BOARDS</div>
+        <div class="fdesc">Storyboards, moodboards</div>
+      </div>
+      <div class="frow d2">
+        <div class="fname"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 7a2 2 0 0 1 2-2h4l2 2.5h8a2 2 0 0 1 2 2V17a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></svg>REF</div>
+        <div class="fdesc">Reference material gathered for the project</div>
+      </div>
+      <div class="frow d2">
+        <div class="fname"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 7a2 2 0 0 1 2-2h4l2 2.5h8a2 2 0 0 1 2 2V17a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></svg>SCRIPT</div>
+        <div class="fdesc">Scripts, visual scripts</div>
+      </div>
+      <div class="frow d1">
+        <div class="fname"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 7a2 2 0 0 1 2-2h4l2 2.5h8a2 2 0 0 1 2 2V17a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></svg>02_ASSETS</div>
+        <div class="fdesc">Anything you didn't make yourself, sorted by type</div>
+      </div>
+      <div class="frow d2">
+        <div class="fname"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 7a2 2 0 0 1 2-2h4l2 2.5h8a2 2 0 0 1 2 2V17a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></svg>3D</div>
+        <div class="fdesc">3D models and scenes brought in</div>
+      </div>
+      <div class="frow d2">
+        <div class="fname"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 7a2 2 0 0 1 2-2h4l2 2.5h8a2 2 0 0 1 2 2V17a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></svg>AUDIO</div>
+        <div class="fdesc">Split further by use</div>
+      </div>
+      <div class="frow d3">
+        <div class="fname"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 7a2 2 0 0 1 2-2h4l2 2.5h8a2 2 0 0 1 2 2V17a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></svg>_IN</div>
+        <div class="fdesc">Incoming audio before it's touched</div>
+      </div>
+      <div class="frow d3">
+        <div class="fname"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 7a2 2 0 0 1 2-2h4l2 2.5h8a2 2 0 0 1 2 2V17a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></svg>_OUT</div>
+        <div class="fdesc">Audio exported out of the project</div>
+      </div>
+      <div class="frow d3">
+        <div class="fname"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 7a2 2 0 0 1 2-2h4l2 2.5h8a2 2 0 0 1 2 2V17a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></svg>MUSIC</div>
+        <div class="fdesc">Music tracks</div>
+      </div>
+      <div class="frow d3">
+        <div class="fname"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 7a2 2 0 0 1 2-2h4l2 2.5h8a2 2 0 0 1 2 2V17a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></svg>SFX</div>
+        <div class="fdesc">Sound effects</div>
+      </div>
+      <div class="frow d3">
+        <div class="fname"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 7a2 2 0 0 1 2-2h4l2 2.5h8a2 2 0 0 1 2 2V17a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></svg>VOICE</div>
+        <div class="fdesc">Voice recordings</div>
+      </div>
+      <div class="frow d4">
+        <div class="fname"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 7a2 2 0 0 1 2-2h4l2 2.5h8a2 2 0 0 1 2 2V17a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></svg>CAPTURE</div>
+        <div class="fdesc">Raw voice recordings</div>
+      </div>
+      <div class="frow d2">
+        <div class="fname"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 7a2 2 0 0 1 2-2h4l2 2.5h8a2 2 0 0 1 2 2V17a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></svg>CAMERA</div>
+        <div class="fdesc">Raw camera footage</div>
+      </div>
+      <div class="frow d2">
+        <div class="fname"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 7a2 2 0 0 1 2-2h4l2 2.5h8a2 2 0 0 1 2 2V17a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></svg>DESIGN</div>
+        <div class="fdesc">Design assets</div>
+      </div>
+      <div class="frow d3">
+        <div class="fname"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 7a2 2 0 0 1 2-2h4l2 2.5h8a2 2 0 0 1 2 2V17a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></svg>_SLATE</div>
+        <div class="fdesc">Reusable slate files (16x9, 2x1, social crops, source .ai)</div>
+      </div>
+      <div class="frow d2">
+        <div class="fname"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 7a2 2 0 0 1 2-2h4l2 2.5h8a2 2 0 0 1 2 2V17a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></svg>FONT</div>
+        <div class="fdesc">Fonts used on the project</div>
+      </div>
+      <div class="frow d2">
+        <div class="fname"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 7a2 2 0 0 1 2-2h4l2 2.5h8a2 2 0 0 1 2 2V17a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></svg>PHOTO</div>
+        <div class="fdesc">Photography assets</div>
+      </div>
+      <div class="frow d2">
+        <div class="fname"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 7a2 2 0 0 1 2-2h4l2 2.5h8a2 2 0 0 1 2 2V17a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></svg>PROXY</div>
+        <div class="fdesc">Proxy or optimised media for editing</div>
+      </div>
+      <div class="frow d2">
+        <div class="fname"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 7a2 2 0 0 1 2-2h4l2 2.5h8a2 2 0 0 1 2 2V17a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></svg>RENDER</div>
+        <div class="fdesc">Renders brought in from other software</div>
+      </div>
+      <div class="frow d3">
+        <div class="fname"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 7a2 2 0 0 1 2-2h4l2 2.5h8a2 2 0 0 1 2 2V17a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></svg>GUIDE</div>
+        <div class="fdesc">Reference-only guide renders, not final</div>
+      </div>
+      <div class="frow d2">
+        <div class="fname"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 7a2 2 0 0 1 2-2h4l2 2.5h8a2 2 0 0 1 2 2V17a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></svg>STOCK</div>
+        <div class="fdesc">Stock footage and assets</div>
+      </div>
+      <div class="frow d1">
+        <div class="fname"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 7a2 2 0 0 1 2-2h4l2 2.5h8a2 2 0 0 1 2 2V17a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></svg>03_EDIT</div>
+        <div class="fdesc">Edit software project files</div>
+      </div>
+      <div class="frow d2">
+        <div class="fname"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 7a2 2 0 0 1 2-2h4l2 2.5h8a2 2 0 0 1 2 2V17a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></svg>RESOLVE</div>
+        <div class="fdesc">DaVinci Resolve project folder. Resolve manages it, so leave it alone</div>
+      </div>
+      <div class="frow d1">
+        <div class="fname"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 7a2 2 0 0 1 2-2h4l2 2.5h8a2 2 0 0 1 2 2V17a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></svg>04_PROD</div>
+        <div class="fdesc">Active production. Empty at the start, then add one subfolder per program: AE, C4D, Blender</div>
+      </div>
+      <div class="frow d1">
+        <div class="fname"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 7a2 2 0 0 1 2-2h4l2 2.5h8a2 2 0 0 1 2 2V17a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></svg>05_DELIVER</div>
+        <div class="fdesc">Final exports only. The file you'd hand off</div>
+      </div>
+    </div>
+    <div class="prose">
+      <p>Same five folders, same order, every project. Numbered so it sorts in build order. <code>02_ASSETS</code> is anything you didn't make. <code>04_PROD</code> is where you make it. <code>05_DELIVER</code> is what you hand off.</p>
     </div>
   </section>
 
@@ -142,26 +264,26 @@
     <p class="section-note">What you'll actually use this semester.</p>
     <div class="diagram">
       <div class="caption">Example project organization</div>
-    <div class="frow">
-      <div class="fname"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 7a2 2 0 0 1 2-2h4l2 2.5h8a2 2 0 0 1 2 2V17a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></svg>Assignment - Project Name</div>
-      <div class="fdesc">Top-level project folder</div>
-    </div>
-    <div class="frow child">
-      <div class="fname"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 7a2 2 0 0 1 2-2h4l2 2.5h8a2 2 0 0 1 2 2V17a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></svg>01 - Assets</div>
-      <div class="fdesc">Stock, reference, fonts, audio</div>
-    </div>
-    <div class="frow child">
-      <div class="fname"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 7a2 2 0 0 1 2-2h4l2 2.5h8a2 2 0 0 1 2 2V17a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></svg>02 - Production</div>
-      <div class="fdesc">Active build files, one subfolder per program</div>
-    </div>
-    <div class="frow child">
-      <div class="fname"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 7a2 2 0 0 1 2-2h4l2 2.5h8a2 2 0 0 1 2 2V17a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></svg>03 - Edit</div>
-      <div class="fdesc">Renders exported out of your build tool</div>
-    </div>
-    <div class="frow child">
-      <div class="fname"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 7a2 2 0 0 1 2-2h4l2 2.5h8a2 2 0 0 1 2 2V17a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></svg>04 - Delivery</div>
-      <div class="fdesc">Final exports only</div>
-    </div>
+      <div class="frow d0">
+        <div class="fname"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 7a2 2 0 0 1 2-2h4l2 2.5h8a2 2 0 0 1 2 2V17a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></svg>Assignment - Project Name</div>
+        <div class="fdesc">Top-level project folder</div>
+      </div>
+      <div class="frow d1">
+        <div class="fname"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 7a2 2 0 0 1 2-2h4l2 2.5h8a2 2 0 0 1 2 2V17a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></svg>01 - Assets</div>
+        <div class="fdesc">Stock, reference, fonts, audio</div>
+      </div>
+      <div class="frow d1">
+        <div class="fname"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 7a2 2 0 0 1 2-2h4l2 2.5h8a2 2 0 0 1 2 2V17a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></svg>02 - Production</div>
+        <div class="fdesc">Active build files, one subfolder per program</div>
+      </div>
+      <div class="frow d1">
+        <div class="fname"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 7a2 2 0 0 1 2-2h4l2 2.5h8a2 2 0 0 1 2 2V17a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></svg>03 - Edit</div>
+        <div class="fdesc">Renders exported out of your build tool</div>
+      </div>
+      <div class="frow d1">
+        <div class="fname"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 7a2 2 0 0 1 2-2h4l2 2.5h8a2 2 0 0 1 2 2V17a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></svg>04 - Delivery</div>
+        <div class="fdesc">Final exports only</div>
+      </div>
     </div>
     <div class="prose">
       <p>Same logic as the full version. Four folders instead of five, no nested asset library. Incoming material, work in progress, and finished output, kept apart.</p>
@@ -169,50 +291,35 @@
   </section>
 
   <section>
-    <h2>A full production structure</h2>
-    <p class="section-note">This is what I run on client work. More structure than a class project needs, but it's the real thing.</p>
-<pre class="tree">BOC26 - Teaser Animations
-├─ 01_PRE
-│  ├─ BOARDS
-│  ├─ REF
-│  └─ SCRIPT
-├─ 02_ASSETS
-│  ├─ 3D
-│  ├─ AUDIO
-│  │  ├─ _IN
-│  │  ├─ _OUT
-│  │  ├─ MUSIC
-│  │  ├─ SFX
-│  │  └─ VOICE
-│  │     └─ CAPTURE
-│  ├─ CAMERA
-│  ├─ DESIGN
-│  │  └─ _SLATE
-│  ├─ FONT
-│  ├─ PHOTO
-│  ├─ PROXY
-│  ├─ RENDER
-│  │  └─ GUIDE
-│  └─ STOCK
-├─ 03_EDIT
-│  └─ RESOLVE
-├─ 04_PROD
-│  └─ <span class="note">(one subfolder per program: AE, C4D, Blender)</span>
-└─ 05_DELIVER</pre>
-    <div class="prose">
-      <p>Numbered so it sorts in build order. Everything you didn't make yourself lives in <code>02_ASSETS</code>, sorted by type. Everything you build lives in <code>04_PROD</code>. Final exports only in <code>05_DELIVER</code>.</p>
-    </div>
-  </section>
-
-  <section>
     <h2>A different discipline, same idea</h2>
     <p class="section-note">This isn't a motion or 3D pattern. Here's a graphic design project.</p>
-<pre class="tree">ClientName - Brand Refresh
-├─ 00_Brief     <span class="note">(brief, client files, references)</span>
-├─ 01_Assets    <span class="note">(supplied logos, fonts, photography)</span>
-├─ 02_Working   <span class="note">(InDesign, Illustrator, Photoshop files, versioned)</span>
-├─ 03_Proofs    <span class="note">(exports for client review)</span>
-└─ 04_Final     <span class="note">(print-ready, final delivery files)</span></pre>
+    <div class="diagram">
+      <div class="caption">Example project organization</div>
+      <div class="frow d0">
+        <div class="fname"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 7a2 2 0 0 1 2-2h4l2 2.5h8a2 2 0 0 1 2 2V17a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></svg>ClientName - Brand Refresh</div>
+        <div class="fdesc">Top-level project folder</div>
+      </div>
+      <div class="frow d1">
+        <div class="fname"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 7a2 2 0 0 1 2-2h4l2 2.5h8a2 2 0 0 1 2 2V17a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></svg>00_Brief</div>
+        <div class="fdesc">Brief, client files, references</div>
+      </div>
+      <div class="frow d1">
+        <div class="fname"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 7a2 2 0 0 1 2-2h4l2 2.5h8a2 2 0 0 1 2 2V17a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></svg>01_Assets</div>
+        <div class="fdesc">Supplied logos, fonts, photography</div>
+      </div>
+      <div class="frow d1">
+        <div class="fname"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 7a2 2 0 0 1 2-2h4l2 2.5h8a2 2 0 0 1 2 2V17a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></svg>02_Working</div>
+        <div class="fdesc">InDesign, Illustrator, Photoshop files, versioned</div>
+      </div>
+      <div class="frow d1">
+        <div class="fname"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 7a2 2 0 0 1 2-2h4l2 2.5h8a2 2 0 0 1 2 2V17a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></svg>03_Proofs</div>
+        <div class="fdesc">Exports for client review</div>
+      </div>
+      <div class="frow d1">
+        <div class="fname"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 7a2 2 0 0 1 2-2h4l2 2.5h8a2 2 0 0 1 2 2V17a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></svg>04_Final</div>
+        <div class="fdesc">Print-ready, final delivery files</div>
+      </div>
+    </div>
     <div class="prose">
       <p>Different vocabulary, same three ideas: what came in, what you're building, what's done.</p>
     </div>
