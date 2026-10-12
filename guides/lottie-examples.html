@@ -1,0 +1,70 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Motion Graphics 3 | Lottie Examples</title>
+<style>
+  :root{
+    --bg:#F4F1EA; --surface:#FAF8F3; --text:#0E0E0E; --muted:#6B6962;
+    --border:rgba(14,14,14,0.12); --accent:#1D5C6B; color-scheme:light;
+  }
+  @media (prefers-color-scheme: dark){
+    :root:not([data-theme="light"]){
+      --bg:#1A1A1A; --surface:#2A2926; --text:#F4F1EA; --muted:#A9A392;
+      --border:rgba(244,241,234,0.14); --accent:#5FB3C4; color-scheme:dark;
+    }
+  }
+  *{ box-sizing:border-box; }
+  html,body{ margin:0; }
+  body{ background:var(--bg); color:var(--text); font-family:'Inter', -apple-system, BlinkMacSystemFont, sans-serif; line-height:1.55; padding-inline:20px; }
+  main{ max-width:1200px; margin:0 auto; padding-block:56px 80px; }
+  .eyebrow{ display:inline-flex; align-items:center; gap:8px; font-size:12.5px; font-weight:600; letter-spacing:0.08em; text-transform:uppercase; color:var(--accent); margin-bottom:14px; }
+  .eyebrow::before{ content:""; width:7px; height:7px; border-radius:2px; background:var(--accent); display:inline-block; }
+  h1{ font-size:clamp(28px,5vw,38px); font-weight:700; letter-spacing:-0.02em; margin:0 0 14px; }
+  .lede{ font-size:17px; color:var(--muted); max-width:56ch; margin:0 0 32px; }
+  .grid{ display:grid; grid-template-columns:repeat(3,1fr); align-items:start; gap:18px; }
+  @media (max-width:640px){ .grid{ grid-template-columns:1fr; } }
+  .card{ background:#fff; border:1px solid var(--border); border-radius:4px; overflow:hidden; cursor:pointer; }
+  .card svg{ display:block; width:100%; height:100%; }
+  footer{ margin-top:64px; padding-top:20px; border-top:1px solid var(--border); color:var(--muted); font-size:13.5px; }
+  footer a{ color:var(--muted); }
+  footer a:hover{ color:var(--accent); }
+</style>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+<main>
+  <div class="eyebrow">Motion Graphics 3</div>
+  <h1>Lottie Examples</h1>
+  <p class="lede">Seamless loops from past work. Hover over one to play it. On a phone or tablet, tap.</p>
+  <div class="grid" id="grid"></div>
+  <footer>Motion Graphics 3: reference resource, built by <a href="https://bradleydoyle.ca">Bradley Doyle</a></footer>
+</main>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/lottie-web/5.12.2/lottie.min.js"></script>
+<script>
+const items=[{"file": "01.json", "frame": 0, "ar": 1.7778, "g": 0}, {"file": "02.json", "frame": 0, "ar": 1.7778, "g": 0}, {"file": "03.json", "frame": 0, "ar": 1.7778, "g": 0}, {"file": "04.json", "frame": 0, "ar": 1.7778, "g": 0}, {"file": "05.json", "frame": 0, "ar": 1.7778, "g": 0}, {"file": "06.json", "frame": 4, "ar": 1.7778, "g": 0}, {"file": "07.json", "frame": 0, "ar": 1.7778, "g": 0}, {"file": "08.json", "frame": 0, "ar": 1.7778, "g": 0}, {"file": "09.json", "frame": 0, "ar": 1.7778, "g": 0}, {"file": "10.json", "frame": 0, "ar": 1.7778, "g": 0}, {"file": "11.json", "frame": 0, "ar": 1.7778, "g": 0}, {"file": "12.json", "frame": 0, "ar": 1.7778, "g": 0}, {"file": "13.json", "frame": 0, "ar": 1.7643, "g": 0}, {"file": "14.json", "frame": 0, "ar": 1.7778, "g": 0}, {"file": "15.json", "frame": 0, "ar": 1.7778, "g": 0}, {"file": "16.json", "frame": 2, "ar": 1.7778, "g": 0}, {"file": "17.json", "frame": 0, "ar": 1.7778, "g": 0}, {"file": "18.json", "frame": 0, "ar": 1.7778, "g": 0}, {"file": "19.json", "frame": 240, "ar": 1.7778, "g": 0}, {"file": "20.json", "frame": 0, "ar": 1.7778, "g": 0}, {"file": "21.json", "frame": 180, "ar": 1.7778, "g": 0}, {"file": "22.json", "frame": 90, "ar": 1.7778, "g": 0}, {"file": "23.json", "frame": 44, "ar": 1.7778, "g": 0}, {"file": "24.json", "frame": 0, "ar": 1.7778, "g": 0}, {"file": "25.json", "frame": 0, "ar": 1.7778, "g": 0}, {"file": "26.json", "frame": 150, "ar": 1.7778, "g": 0}, {"file": "27.json", "frame": 0, "ar": 1.7778, "g": 0}, {"file": "28.json", "frame": 0, "ar": 1.7778, "g": 0}, {"file": "29.json", "frame": 0, "ar": 1.7778, "g": 0}, {"file": "30.json", "frame": 0, "ar": 1.7778, "g": 0}, {"file": "31.json", "frame": 0, "ar": 1.7778, "g": 0}, {"file": "32.json", "frame": 0, "ar": 1.7778, "g": 0}, {"file": "33.json", "frame": 0, "ar": 1.7778, "g": 0}, {"file": "34.json", "frame": 0, "ar": 1.7778, "g": 0}, {"file": "35.json", "frame": 0, "ar": 1.7778, "g": 0}, {"file": "36.json", "frame": 0, "ar": 1.7777, "g": 0}, {"file": "37.json", "frame": 0, "ar": 1.7778, "g": 0}, {"file": "38.json", "frame": 0, "ar": 1.7778, "g": 0}, {"file": "39.json", "frame": 0, "ar": 1.7778, "g": 0}, {"file": "40.json", "frame": 0, "ar": 1.7778, "g": 0}, {"file": "41.json", "frame": 0, "ar": 1.7778, "g": 0}, {"file": "42.json", "frame": 0, "ar": 1.7778, "g": 0}, {"file": "43.json", "frame": 0, "ar": 1.7778, "g": 0}, {"file": "44.json", "frame": 0, "ar": 1.7778, "g": 0}, {"file": "45.json", "frame": 0, "ar": 1.7778, "g": 0}, {"file": "46.json", "frame": 0, "ar": 1.7778, "g": 0}, {"file": "47.json", "frame": 360, "ar": 1.7778, "g": 0}, {"file": "48.json", "frame": 0, "ar": 1.7778, "g": 0}, {"file": "49.json", "frame": 100, "ar": 1.7778, "g": 0}, {"file": "50.json", "frame": 0, "ar": 1.7778, "g": 0}, {"file": "51.json", "frame": 0, "ar": 1.7778, "g": 0}, {"file": "52.json", "frame": 0, "ar": 1.7778, "g": 0}, {"file": "53.json", "frame": 0, "ar": 1.2778, "g": 1}, {"file": "54.json", "frame": 0, "ar": 1.2929, "g": 1}, {"file": "55.json", "frame": 0, "ar": 1.439, "g": 1}, {"file": "56.json", "frame": 150, "ar": 1.0, "g": 2}, {"file": "57.json", "frame": 0, "ar": 1.0, "g": 2}, {"file": "58.json", "frame": 0, "ar": 1.0, "g": 2}];
+const grid=document.getElementById('grid');
+const touch=matchMedia('(hover: none)').matches;
+const io=new IntersectionObserver(es=>{es.forEach(e=>{const c=e.target;
+  if(e.isIntersecting&&!c._a){
+    c._a=lottie.loadAnimation({container:c,renderer:'svg',loop:true,autoplay:false,path:'assets/lottie/'+c.dataset.f,rendererSettings:{preserveAspectRatio:'xMidYMid meet'}});
+    c._a.addEventListener('DOMLoaded',()=>c._a.goToAndStop(+c.dataset.fr,true));
+  } else if(!e.isIntersecting&&c._a){c._a.destroy();c._a=null;c.innerHTML='';}
+});},{rootMargin:'200px'});
+let cnt=0,lastG=0;
+items.forEach(i=>{
+  if(i.g!==lastG){while(cnt%3){grid.appendChild(document.createElement('div'));cnt++;}lastG=i.g;}
+  cnt++;
+  const s=document.createElement('div');
+  s.className='card';s.dataset.f=i.file;s.dataset.fr=i.frame;s.style.aspectRatio=i.ar;
+  const reset=()=>s._a&&s._a.goToAndStop(+s.dataset.fr,true);
+  if(!touch){s.addEventListener('mouseenter',()=>s._a&&s._a.play());s.addEventListener('mouseleave',reset);}
+  else s.addEventListener('click',()=>{if(!s._a)return;s._a.isPaused?s._a.play():reset();});
+  grid.appendChild(s);io.observe(s);
+});
+</script>
+</body>
+</html>
