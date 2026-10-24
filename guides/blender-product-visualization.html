@@ -1,0 +1,283 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Blender Product Visualization | Motion Graphics 3</title>
+<style>
+  :root{
+    --bg:#F4F1EA;
+    --surface:#FAF8F3;
+    --surface-2:#E8E3D6;
+    --text:#0E0E0E;
+    --muted:#6B6962;
+    --border:rgba(14,14,14,0.12);
+    --accent:#1D5C6B;
+    --accent-soft:#DCE8E9;
+    --code-bg:#0E0E0E;
+    --code-text:#F4F1EA;
+    --code-muted:#9C9686;
+    color-scheme:light;
+  }
+  @media (prefers-color-scheme: dark){
+    :root:not([data-theme="light"]){
+      --bg:#1A1A1A; --surface:#2A2926; --surface-2:#363228; --text:#F4F1EA; --muted:#A9A392;
+      --border:rgba(244,241,234,0.14); --accent:#5FB3C4; --accent-soft:#1C3236;
+      --code-bg:#0E0E0E; --code-text:#F4F1EA; --code-muted:#8f8a7c; color-scheme:dark;
+    }
+  }
+  :root[data-theme="dark"]{
+    --bg:#1A1A1A; --surface:#2A2926; --surface-2:#363228; --text:#F4F1EA; --muted:#A9A392;
+    --border:rgba(244,241,234,0.14); --accent:#5FB3C4; --accent-soft:#1C3236;
+    --code-bg:#0E0E0E; --code-text:#F4F1EA; --code-muted:#8f8a7c; color-scheme:dark;
+  }
+  * { box-sizing:border-box; }
+  html,body{ margin:0; }
+  body{
+    background:var(--bg); color:var(--text);
+    font-family:'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+    line-height:1.55; padding-inline:20px;
+  }
+  h1,h2,h3{ font-family:'Inter', -apple-system, sans-serif; font-weight:700; letter-spacing:-0.02em; text-wrap:balance; }
+  code, .mono{ font-family:'JetBrains Mono', ui-monospace, monospace; }
+  main{ max-width:760px; margin:0 auto; padding-block:32px 80px; }
+  a.backlink{ color:var(--muted); font-size:13.5px; text-decoration:none; }
+  a.backlink:hover{ color:var(--accent); }
+
+  .eyebrow{
+    display:inline-flex; align-items:center; gap:8px;
+    font-size:12.5px; font-weight:600; letter-spacing:0.08em;
+    text-transform:uppercase; color:var(--accent); margin:24px 0 14px;
+  }
+  .eyebrow::before{ content:""; width:7px; height:7px; border-radius:2px; background:var(--accent); display:inline-block; }
+  h1{ font-size:clamp(28px,5vw,38px); margin:0 0 14px; }
+  .lede{ font-size:17px; color:var(--muted); max-width:56ch; margin:0 0 8px; }
+
+  section{ margin-top:52px; }
+  h2{ font-size:22px; margin:0 0 6px; }
+  .section-note{ color:var(--muted); font-size:15px; margin:0 0 20px; max-width:58ch; }
+
+  /* benefits list */
+  .benefits{ margin:20px 0 0; display:grid; gap:10px; }
+  .benefit{ display:flex; gap:10px; align-items:flex-start; font-size:15px; padding:12px 14px; background:var(--surface-2); border-radius:6px; }
+  .benefit::before{ content:"•"; color:var(--accent); font-weight:700; flex-shrink:0; }
+  .benefit a{ display:block; color:var(--text); font-weight:600; text-decoration:none; margin-bottom:2px; }
+  .benefit a:hover{ color:var(--accent); text-decoration:underline; }
+  .benefit a::after{ content:" ↗"; color:var(--accent); font-weight:400; }
+
+  .tip-box{
+    margin-top:16px; display:flex; gap:12px; align-items:flex-start;
+    background:var(--accent-soft); border-radius:6px; padding:16px;
+  }
+  .tip-box .icon{ font-size:18px; line-height:1; }
+  .tip-box .d{ font-size:14.5px; color:var(--text); }
+  .tip-box .d b{ display:block; margin-bottom:4px; }
+
+  .done-box{
+    margin-top:24px; padding:20px 22px; background:var(--surface-2); border-radius:8px;
+    display:flex; align-items:center; gap:14px;
+  }
+  .done-box .mark{
+    flex-shrink:0; width:32px; height:32px; border-radius:50%; background:var(--accent-soft);
+    color:var(--accent); display:flex; align-items:center; justify-content:center; font-weight:700;
+  }
+  .done-box .d{ font-size:15px; }
+  .done-box .d b{ display:block; font-size:16px; margin-bottom:2px; }
+
+
+  ul.plain{ margin:12px 0 0; padding-left:20px; font-size:15px; }
+  ul.plain li{ margin:6px 0; }
+  ol.plan{ margin:14px 0 0; padding-left:22px; font-size:15px; }
+  ol.plan li{ margin:8px 0; }
+  h3{ font-size:16px; margin:28px 0 4px; }
+  .due{ margin-top:24px; padding:16px 18px; background:var(--accent-soft); border-radius:6px; font-size:15px; }
+  .due b{ display:block; margin-bottom:4px; }
+  table.fix{ width:100%; border-collapse:collapse; margin-top:16px; font-size:14.5px; }
+  table.fix th, table.fix td{ text-align:left; vertical-align:top; padding:10px 12px; border-bottom:1px solid var(--border); }
+  table.fix th{ font-size:12.5px; letter-spacing:0.06em; text-transform:uppercase; color:var(--muted); }
+  table.fix td:first-child{ font-weight:600; width:32%; }
+
+  footer{ margin-top:64px; padding-top:20px; border-top:1px solid var(--border); color:var(--muted); font-size:13.5px; }
+</style>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+</head>
+<body>
+<main>
+  <a class="backlink" href="../index.html">&larr; All guides</a>
+  <div class="eyebrow">Motion Graphics 3</div>
+  <h1>Blender Product Visualization: Break Resources</h1>
+  <p class="lede">Everything you need for the break in one place: models, lighting and materials, tutorials, rendering help, and where to go when you get stuck.</p>
+
+  <div class="due"><b>Due: Friday, November 6th, 11:59 PM</b>Blender Product Visualization: Final (the night of the Week 09 class). Full requirements are in the Week 06 module on Brightspace:
+    <a href="https://brightspace.algonquincollege.com/d2l/le/content/928287/viewContent/13606972/View" target="_blank" rel="noopener">Group 1</a> |
+    <a href="https://brightspace.algonquincollege.com/d2l/le/content/928286/viewContent/13606973/View" target="_blank" rel="noopener">Group 2</a>
+  </div>
+
+  <section>
+    <h2>A suggested plan for the break</h2>
+    <p class="section-note">You don't have to follow this. It keeps the render and export from piling up in the last two days.</p>
+    <ol class="plan">
+      <li><b>Before the break:</b> Model chosen, materials started, lighting started.</li>
+      <li><b>During the break:</b> Finish the materials and lighting. Animate your hero move. Test-render a few single frames.</li>
+      <li><b>Early in Week 09:</b> Start the full render. Cycles can take a long time, so don't wait until the last night.</li>
+      <li><b>Before Week 09 class:</b> Composite and export in After Effects, so you can ask questions in class.</li>
+      <li><b>Friday, November 6th by 11:59 PM:</b> Submit your 1920x1080 mp4.</li>
+    </ol>
+  </section>
+
+  <section>
+    <h2>Models</h2>
+    <p class="section-note">Pick one provided model, or find your own. Hard-surface objects work best. Avoid liquids, cloth and fur.</p>
+    <div class="benefits">
+      <div class="benefit"><div><a href="https://drive.google.com/drive/folders/13MzvccdR5YGjd__RLXclejiaq8dIVV2v?usp=sharing" target="_blank" rel="noopener">Provided objects (Drive folder)</a>The models from class.</div></div>
+      <div class="benefit"><div><a href="https://www.blenderkit.com/" target="_blank" rel="noopener">BlenderKit</a>Also built into Blender.</div></div>
+      <div class="benefit"><div><a href="https://polyhaven.com/" target="_blank" rel="noopener">Poly Haven models</a>Free, CC0, no sign-up.</div></div>
+      <div class="benefit"><div><a href="https://www.turbosquid.com/" target="_blank" rel="noopener">TurboSquid</a>Mostly paid options, but there are some free models.</div></div>
+      <div class="benefit"><div><a href="https://www.cgtrader.com/" target="_blank" rel="noopener">CGTrader</a>A good selection of free models. Watch out for AI-generated models.</div></div>
+      <div class="benefit"><div><a href="https://free3d.com/" target="_blank" rel="noopener">Free3D</a></div></div>
+      <div class="benefit"><div><a href="https://open3dmodel.com/" target="_blank" rel="noopener">Open 3D Model</a></div></div>
+    </div>
+
+    <h3>Before you download</h3>
+    <ul class="plain">
+      <li>A .blend file opens straight in Blender. For .fbx, .obj or .glb files, use File, Import.</li>
+      <li>Check the licence, and keep a note of where each model came from.</li>
+      <li>Look at the preview from several angles. Models that look good in the thumbnail can be messy up close.</li>
+      <li>AI-generated models often have messy geometry and unusable textures. If it looks odd up close, pick a different one.</li>
+      <li>Imported models can come in the wrong size or facing the wrong way. Check scale and rotation before you build anything on top.</li>
+    </ul>
+  </section>
+
+  <section>
+    <h2>Lighting and materials</h2>
+    <div class="benefits">
+      <div class="benefit"><div><a href="https://polyhaven.com/" target="_blank" rel="noopener">Poly Haven HDRIs</a>Free environment lighting you can drop into your scene in one click. CC0.</div></div>
+      <div class="benefit"><div><a href="https://polyhaven.com/" target="_blank" rel="noopener">Poly Haven textures</a>Free seamless PBR materials. CC0.</div></div>
+      <div class="benefit"><div><a href="https://ambientcg.com/" target="_blank" rel="noopener">ambientCG</a>A large collection of free textures and materials.</div></div>
+    </div>
+
+    <p class="section-note" style="margin-top:16px;">Look at real photos of your product before you build the material. Notice where the highlights sit and how soft the edges of the shadows are.</p>
+    <h3>Quick lighting ideas for a product</h3>
+    <ul class="plain">
+      <li>Start with three lights: a main (key) light, a softer fill, and a rim light behind the product to separate it from the background.</li>
+      <li>A big soft light gives soft, flattering reflections. A small hard light gives sharp highlights and hard shadows.</li>
+      <li>Reflective and metallic products need something to reflect. An HDRI or a few large softboxes will do more than lots of small lights.</li>
+      <li>Keep the background simple so the product reads first.</li>
+    </ul>
+  </section>
+
+  <section>
+    <h2>Tutorials to watch</h2>
+    <h3>Product animation</h3>
+    <div class="benefits">
+      <div class="benefit"><div><a href="https://www.youtube.com/watch?v=TsgtIKpnNas" target="_blank" rel="noopener">Product Animation Tutorial (beginner friendly)</a>Three-point lighting, animating the product, camera animation and render settings, in the style of a product ad.</div></div>
+      <div class="benefit"><div><a href="https://www.youtube.com/@DerekElliott" target="_blank" rel="noopener">Derek Elliott</a>Lots of Blender tutorials, including a lot on product visualization.</div></div>
+    </div>
+
+    <h3>Labels and stickers</h3>
+    <div class="benefits">
+      <div class="benefit"><div><a href="https://youtu.be/n7FkOaI0vPI" target="_blank" rel="noopener">Sweet Boy Motion: labels and stickers on materials</a></div></div>
+      <div class="benefit"><div><a href="https://youtu.be/yHNCRRrHQn4" target="_blank" rel="noopener">Add a Sticker, a Label, or a Decal to any Object in Blender</a>A full tutorial on putting a label on an object.</div></div>
+      <div class="benefit"><div><a href="https://www.youtube.com/watch?v=Zo1ABY07b10" target="_blank" rel="noopener">Blender Secrets: Placing Decals on Objects</a>About a minute long. Uses the Images as Planes add-on and the Shrinkwrap modifier.</div></div>
+    </div>
+
+    <h3>Blender basics</h3>
+    <div class="benefits">
+      <div class="benefit"><div><a href="https://youtube.com/playlist?list=PLjEaoINr3zgGUwGwXlj9kBe7TrVWNjkyv" target="_blank" rel="noopener">Blender Guru: Beginner Donut Tutorial (Blender 5.0)</a>Modelling, materials, lighting and rendering in one project.</div></div>
+    </div>
+
+    <h3>YouTube channels</h3>
+    <div class="benefits">
+      <div class="benefit"><div><a href="https://www.youtube.com/@blenderguru" target="_blank" rel="noopener">Blender Guru (Andrew Price)</a>Start here if you're new.</div></div>
+      <div class="benefit"><div><a href="https://www.youtube.com/@RyanKingArt" target="_blank" rel="noopener">Ryan King Art</a>Procedural materials and shaders.</div></div>
+      <div class="benefit"><div><a href="https://www.youtube.com/@DerekElliott" target="_blank" rel="noopener">Derek Elliott</a>Lots of product visualization tutorials.</div></div>
+      <div class="benefit"><div><a href="https://www.youtube.com/@grabbitt/videos" target="_blank" rel="noopener">Grant Abbitt</a>Calmer pace. A good second stop.</div></div>
+      <div class="benefit"><div><a href="https://www.youtube.com/@sweetboy.motion" target="_blank" rel="noopener">Sweet Boy Motion</a>Blender with a motion design workflow.</div></div>
+      <div class="benefit"><div><a href="https://www.youtube.com/@Polyfjord" target="_blank" rel="noopener">Polyfjord</a>Animation and motion design focused.</div></div>
+      <div class="benefit"><div><a href="https://www.youtube.com/@SouthernShotty" target="_blank" rel="noopener">SouthernShotty</a>Film-like final touches.</div></div>
+      <div class="benefit"><div><a href="https://www.youtube.com/@KaizenTutorials" target="_blank" rel="noopener">Kaizen</a>Blender tutorials on animation, geometry nodes and motion graphics.</div></div>
+      <div class="benefit"><div><a href="https://www.youtube.com/@robinsquares" target="_blank" rel="noopener">Robin Squares</a>Blender's compositor, for polishing the final look.</div></div>
+      <div class="benefit"><div><a href="https://www.youtube.com/@BlenderSecrets" target="_blank" rel="noopener">Blender Secrets</a>One-to-two-minute videos on single tools. Good for "how do I do X".</div></div>
+    </div>
+  </section>
+
+  <section>
+    <h2>Rendering</h2>
+    <div class="benefits">
+      <div class="benefit"><div><a href="https://docs.blender.org/manual/en/dev/render/cycles/render_settings/sampling.html" target="_blank" rel="noopener">Blender Manual: Cycles sampling</a>Always a good place to start.</div></div>
+    </div>
+
+    <p class="section-note" style="margin-top:16px;">Test-render single frames before you start a full sequence. Do the maths first: 120 frames at one minute each is two hours. Leave real time for compositing and export. In Week 07 we covered bringing your Blender image sequence into After Effects.</p>
+    <h3>Videos, from beginner to advanced</h3>
+    <div class="benefits">
+      <div class="benefit"><div><a href="https://youtu.be/APmw2Q8kBOM" target="_blank" rel="noopener">Beginner (start here)</a>BEGINNERS Guide to Rendering in Blender, by Josh (Blender Bros).</div></div>
+      <div class="benefit"><div><a href="https://youtu.be/0OVEJVbklV0" target="_blank" rel="noopener">Intermediate</a>The Key to Realism in Blender, by Kaizen. Covers the subject, the lighting and the camera. Good for refining after the beginner video.</div></div>
+      <div class="benefit"><div><a href="https://www.youtube.com/watch?v=vtdczoXVyvQ" target="_blank" rel="noopener">Advanced (not required)</a>Render like a professional in Blender, by Robin Squares. Covers colour management, view layers and passes.</div></div>
+      <div class="benefit"><div><a href="https://youtu.be/pkICXEWc1kM" target="_blank" rel="noopener">Faster renders</a>20X Faster Rendering in Cycles, by Kaizen. Covers scene optimization, render settings and denoising.</div></div>
+    </div>
+
+    <h3>Check before you render the full sequence</h3>
+    <ul class="plain">
+      <li>Resolution is 1920x1080 and the frame range is correct.</li>
+      <li>Output is a PNG image sequence, saved to its own folder.</li>
+      <li>Frame rate matches your After Effects composition.</li>
+      <li>Denoising is on if you're using Cycles.</li>
+      <li>Render a single frame at full size first, and look at it closely.</li>
+      <li>To render the whole animation, use Render, Render Animation (Ctrl+F12).</li>
+    </ul>
+  </section>
+
+  <section>
+    <h2>Reference and inspiration</h2>
+    <p class="section-note">Look at real product photography and product ads before you build anything. Search for "product visualization", "product render" or "packshot".</p>
+    <div class="benefits">
+      <div class="benefit"><div><a href="https://www.behance.net/" target="_blank" rel="noopener">Behance</a></div></div>
+      <div class="benefit"><div><a href="https://www.artstation.com/" target="_blank" rel="noopener">ArtStation</a></div></div>
+      <div class="benefit"><div><a href="https://motionographer.com/" target="_blank" rel="noopener">Motionographer</a></div></div>
+    </div>
+
+    <p class="section-note" style="margin-top:16px;">Look at the moodboard you made. If your render looks different from your reference, that's usually where to start fixing it.</p>
+  </section>
+
+  <section>
+    <h2>Troubleshooting</h2>
+    <table class="fix">
+      <thead><tr><th>Problem</th><th>Try this</th></tr></thead>
+      <tbody>
+        <tr><td>The render is black</td><td>Check there's a light (or an HDRI with strength above 0). Check you're looking through the camera (Numpad 0) and the camera isn't inside your object.</td></tr>
+        <tr><td>The render is grainy or noisy</td><td>Turn on Denoise (Cycles, Render properties, Sampling). Raise the samples a little.</td></tr>
+        <tr><td>Tiny bright speckles (fireflies)</td><td>Lower the strength of very bright lights. Try Clamping in Light Paths. Denoising also helps.</td></tr>
+        <tr><td>Textures show up pink</td><td>Blender can't find the image. Use File, External Data, Find Missing Files.</td></tr>
+        <tr><td>The imported object is the wrong size or sideways</td><td>Check its scale and rotation. Apply them (Ctrl+A) before animating.</td></tr>
+        <tr><td>The render takes forever</td><td>Test in Eevee or at a lower resolution percentage. Lower the samples while testing. Turn on GPU rendering in Preferences, System.</td></tr>
+        <tr><td>Blender crashed</td><td>File, Recover, Auto Save (or Last Session). Save versions often, using the Week 04 naming system.</td></tr>
+      </tbody>
+    </table>
+    <h3>Where to ask</h3>
+    <ul class="plain">
+      <li>Bring questions to the Week 09 class.</li>
+      <li><a href="https://blender.stackexchange.com/" target="_blank" rel="noopener">Blender Stack Exchange</a>. Search before you ask.</li>
+      <li><a href="https://blenderartists.org/" target="_blank" rel="noopener">Blender Artists forum</a></li>
+    </ul>
+  </section>
+
+  <section>
+    <h2>Add-ons</h2>
+    <p class="section-note">Some add-ons come with Blender and just need to be turned on in Preferences. Newer versions of Blender also have an Extensions section for finding more. You don't need any add-ons for this project.</p>
+    <ul class="plain">
+      <li><b>Node Wrangler:</b> speeds up working with materials. Select a Principled BSDF node and press Ctrl+Shift+T to load a whole set of texture maps at once.</li>
+      <li><b>BlenderKit:</b> free models and materials from inside Blender. <a href="https://www.blenderkit.com/" target="_blank" rel="noopener">blenderkit.com</a></li>
+      <li><b>Images as Planes:</b> used in the Blender Secrets decals video above.</li>
+    </ul>
+  </section>
+
+  <div class="done-box" style="margin-top:52px;">
+    <div class="mark">✓</div>
+    <div class="d"><b>Pick one model. Get one frame looking good.</b> Then animate it and render the sequence.</div>
+  </div>
+
+  <footer>Motion Graphics 3: reference resource</footer>
+</main>
+</body>
+</html>
